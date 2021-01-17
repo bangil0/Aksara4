@@ -182,6 +182,14 @@ class Model
 	/**
 	 * Get the last insert id
 	 */
+	public function affected_rows()
+	{
+		return $this->db->affectedRows();
+	}
+	
+	/**
+	 * Get the last insert id
+	 */
 	public function insert_id()
 	{
 		return $this->db->insertID();
