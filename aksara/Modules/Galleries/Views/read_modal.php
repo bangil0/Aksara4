@@ -11,7 +11,7 @@
 	}
 </style>
 <div class="photo-view">
-	<a href="javascript:void(0)" class="close text-light absolute" data-dismiss="modal" style="top:15px; right:15px">
+	<a href="javascript:void(0)" class="close text-light text-shadow absolute" data-dismiss="modal" style="top:15px; right:15px">
 		<i class="mdi mdi-window-close"></i>
 	</a>
 	<a href="<?php echo get_image('galleries', $current); ?>" target="_blank">
