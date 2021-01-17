@@ -184,7 +184,7 @@ class Model
 	 */
 	public function affected_rows()
 	{
-		return $this->db->affectedRows();
+		return service('session')->getTempdata('affected_rows');
 	}
 	
 	/**
@@ -192,7 +192,15 @@ class Model
 	 */
 	public function insert_id()
 	{
-		return $this->db->insertID();
+		return service('session')->getTempdata('insert_id');
+	}
+	
+	/**
+	 * Get last query
+	 */
+	public function last_query()
+	{
+		return service('session')->getTempdata('last_query');
 	}
 	
 	/**
@@ -1680,16 +1688,6 @@ class Model
 	}
 	
 	/**
-	 * Get Last Query
-	 * Your contribution is needed to write complete hint about
-	 * this method
-	 */
-	public function last_query()
-	{
-		return get_userdata('____last_query');
-	}
-	
-	/**
 	 * ---------------------------------------------------------------
 	 * Transaction
 	 * ---------------------------------------------------------------
@@ -2044,8 +2042,18 @@ class Model
 			$output									= $builder->get()->$result_type($parameter);
 		}
 		
-		// store last query to display if needed
-		set_userdata('____last_query', $this->db->getLastQuery());
+		// store temporary data to display if needed
+		service('session')->setTempdata
+		(
+			array
+			(
+				'last_query'						=> $this->db->getLastQuery(),
+				'affected_rows'						=> $this->db->affectedRows(),
+				'insert_id'							=> $this->db->insertID()
+			),
+			null,
+			30
+		);
 		
 		// reset property
 		$this->_reset_property();
