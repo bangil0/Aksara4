@@ -180,7 +180,7 @@ class Model
 	}
 	
 	/**
-	 * Get the last insert id
+	 * Get the affected rows
 	 */
 	public function affected_rows()
 	{
