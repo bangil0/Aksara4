@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"<?php echo (in_array(get_userdata('language'), array('arabic')) ? ' dir="rtl"' : null); ?>>
 	<head>
-		<title>
-			<?php echo truncate($template->meta->title); ?>
-		</title>
+		<title><?php echo truncate($template->meta->title); ?></title>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="msapplication-navbutton-color" content="#007bff" />
