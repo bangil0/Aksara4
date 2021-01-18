@@ -2733,21 +2733,7 @@ class Core extends Controller
 			
 			$this->document->pageSize('13in 8.5in');
 			
-			$this->_output							= $this->document->generate($this->_output, $this->_set_title, ($this->_method == 'export' ? 'export' : 'attach'));
-			
-			if('export' == $this->_method)
-			{
-				// set content type as Excel format
-				service('response')->setContentType('application/vnd.ms-excel');
-			}
-			else
-			{
-				// set content type as PDF format
-				service('response')->setContentType('application/pdf');
-			}
-			
-			// send to client
-			return service('response')->setBody($this->_output)->send();
+			return $this->document->generate($this->_output, $this->_set_title, ($this->_method == 'export' ? 'export' : 'embed'));
 		}
 		elseif('delete' == $this->_method)
 		{
