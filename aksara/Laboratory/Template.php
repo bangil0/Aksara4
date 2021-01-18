@@ -494,10 +494,7 @@ class Template
 		
 		// remove duplicate slash
 		$this->_view								= str_replace('//', '/', $this->_view);
-		if(get_userdata('group_id') > 2)
-		{
-			//echo $this->_view;exit;
-		}
+		
 		return $this->_view;
 	}
 	
