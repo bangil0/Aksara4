@@ -28,7 +28,7 @@ class Permission
 			$method									= 'index';
 		}
 		
-		$user										= $this->model->select('user_id, group_id')->get_where('app__users', array('user_id' => ($user_id ? $user_id : get_userdata('user_id')), 'status' => 1), 1)->row();
+		$user										= $this->model->select('user_id, group_id')->get_where('app__users', array('user_id' => ($user_id ? $user_id : service('session')->get('user_id')), 'status' => 1), 1)->row();
 		
 		if(!$user)
 		{
@@ -235,7 +235,7 @@ class Permission
 		
 		$prepare									= array
 		(
-			'user_id'								=> get_userdata('user_id'),
+			'user_id'								=> service('session')->get('user_id'),
 			'module'								=> $module,
 			'submodule'								=> $submodule,
 			'controller'							=> $controller,
