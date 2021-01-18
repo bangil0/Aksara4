@@ -62,33 +62,36 @@ class Contact extends \Aksara\Laboratory\Core
 			/**
 			 * to working with Google SMTP, make sure to activate less secure apps setting
 			 */
-			$this->load->library('email');
+			$this->email							= \Config\Services::email();
 			
-			$config['useragent']       				= 'Aksara';
+			$host									= get_setting('smtp_host');
+			
+			$config['userAgent']       				= 'Aksara';
 			$config['protocol']						= 'smtp';
-			$config['smtp_host']					= get_setting('smtp_host');
-			$config['smtp_port']					= get_setting('smtp_port');
-			$config['smtp_user']					= get_setting('smtp_username');
-			$config['smtp_pass']					= service('encrypter')->decrypt(base64_decode(get_setting('smtp_password')));
-			$config['smtp_timeout']					= '7';
+			$config['SMTPCrypto']					= 'ssl';
+			$config['SMTPHost']						= (strpos($host, '://') !== false ? trim(substr($host, strpos($host, '://') + 3)) : $host);
+			$config['SMTPPort']						= get_setting('smtp_port');
+			$config['SMTPUser']						= get_setting('smtp_username');
+			$config['SMTPPass']						= service('encrypter')->decrypt(base64_decode(get_setting('smtp_password')));
+			$config['SMTPTimeout']					= 5;
 			$config['charset']						= 'utf-8';
 			$config['newline']						= "\r\n";
-			$config['mailtype']						= 'text'; // text or html
-			$config['wordwrap']						= true;
-			$config['validation']					= true; // bool whether to validate email or not     
+			$config['mailType']						= 'html'; // text or html
+			$config['wordWrap']						= true;
+			$config['validation']					= true; // bool whether to validate email or not
 			
 			$this->email->initialize($config);		
 			
-			$this->email->from(get_setting('smtp_email_masking'), get_setting('smtp_sender_masking'));
-			$this->email->to(service('request')->getPost('email'));
+			$this->email->setFrom(get_setting('smtp_email_masking'), get_setting('smtp_sender_masking'));
+			$this->email->setTo(service('request')->getPost('email'));
 			
-			$this->email->subject(service('request')->getPost('subject'));
-			$this->email->message(service('request')->getPost('messages'));
+			$this->email->setSubject(service('request')->getPost('subject'));
+			$this->email->setMessage(service('request')->getPost('messages'));
 			
 			if(!$this->email->send())
 			{
-				//echo $this->email->print_debugger(); exit;
-				return throw_exception(400, array('message' => $this->email->print_debugger()));
+				//echo $this->email->printDebugger(); exit;
+				return throw_exception(400, array('message' => $this->email->printDebugger()));
 			}
 		}
 		

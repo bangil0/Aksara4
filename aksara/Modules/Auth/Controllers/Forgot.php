@@ -79,18 +79,21 @@ class Forgot extends \Aksara\Laboratory\Core
 		 */
 		$this->email								= \Config\Services::email();
 		
-		$config['useragent']       					= 'Aksara';
+		$host										= get_setting('smtp_host');
+		
+		$config['userAgent']       					= 'Aksara';
 		$config['protocol']							= 'smtp';
-		$config['smtp_host']						= get_setting('smtp_host');
-		$config['smtp_port']						= get_setting('smtp_port');
-		$config['smtp_user']						= get_setting('smtp_username');
-		$config['smtp_pass']						= service('encrypter')->decrypt(get_setting('smtp_password'));
-		$config['smtp_timeout']						= '7';
+		$config['SMTPCrypto']						= 'ssl';
+		$config['SMTPHost']							= (strpos($host, '://') !== false ? trim(substr($host, strpos($host, '://') + 3)) : $host);
+		$config['SMTPPort']							= get_setting('smtp_port');
+		$config['SMTPUser']							= get_setting('smtp_username');
+		$config['SMTPPass']							= service('encrypter')->decrypt(base64_decode(get_setting('smtp_password')));
+		$config['SMTPTimeout']						= 5;
 		$config['charset']							= 'utf-8';
 		$config['newline']							= "\r\n";
-		$config['mailtype']							= 'html'; // text or html
-		$config['wordwrap']							= true;
-		$config['validation']						= true; // bool whether to validate email or not     
+		$config['mailType']							= 'html'; // text or html
+		$config['wordWrap']							= true;
+		$config['validation']						= true; // bool whether to validate email or not
 		
 		$this->email->initialize($config);		
 		
@@ -127,13 +130,6 @@ class Forgot extends \Aksara\Laboratory\Core
 					<br />
 					<br />
 					<p>
-						' . phrase('regards') . ',
-					</p>
-					<p>
-						<b>
-							' . phrase('technical_support') . '
-						</b>
-						<br />
 						<b>
 							' . get_setting('office_name') . '
 						</b>
@@ -148,8 +144,8 @@ class Forgot extends \Aksara\Laboratory\Core
 		
 		if(!$this->email->send())
 		{
-			//echo $this->email->print_debugger(); exit;
-			return throw_exception(400, array('message' => $this->email->print_debugger()));
+			//echo $this->email->printDebugger(); exit;
+			return throw_exception(400, array('message' => $this->email->printDebugger()));
 		}
 		
 		$this->model->insert
@@ -255,18 +251,21 @@ class Forgot extends \Aksara\Laboratory\Core
 		 */
 		$this->email								= \Config\Services::email();
 		
-		$config['useragent']       					= 'Aksara';
+		$host										= get_setting('smtp_host');
+		
+		$config['userAgent']       					= 'Aksara';
 		$config['protocol']							= 'smtp';
-		$config['smtp_host']						= get_setting('smtp_host');
-		$config['smtp_port']						= get_setting('smtp_port');
-		$config['smtp_user']						= get_setting('smtp_username');
-		$config['smtp_pass']						= service('encrypter')->decrypt(get_setting('smtp_password'));
-		$config['smtp_timeout']						= '7';
+		$config['SMTPCrypto']						= 'ssl';
+		$config['SMTPHost']							= (strpos($host, '://') !== false ? trim(substr($host, strpos($host, '://') + 3)) : $host);
+		$config['SMTPPort']							= get_setting('smtp_port');
+		$config['SMTPUser']							= get_setting('smtp_username');
+		$config['SMTPPass']							= service('encrypter')->decrypt(base64_decode(get_setting('smtp_password')));
+		$config['SMTPTimeout']						= 5;
 		$config['charset']							= 'utf-8';
 		$config['newline']							= "\r\n";
-		$config['mailtype']							= 'html'; // text or html
-		$config['wordwrap']							= true;
-		$config['validation']						= true; // bool whether to validate email or not     
+		$config['mailType']							= 'html'; // text or html
+		$config['wordWrap']							= true;
+		$config['validation']						= true; // bool whether to validate email or not
 		
 		$this->email->initialize($config);		
 		
@@ -298,13 +297,6 @@ class Forgot extends \Aksara\Laboratory\Core
 					<br />
 					<br />
 					<p>
-						' . phrase('regards') . ',
-					</p>
-					<p>
-						<b>
-							' . phrase('technical_support') . '
-						</b>
-						<br />
 						<b>
 							' . get_setting('office_name') . '
 						</b>
@@ -319,8 +311,8 @@ class Forgot extends \Aksara\Laboratory\Core
 		
 		if(!$this->email->send())
 		{
-			//echo $this->email->print_debugger(); exit;
-			return throw_exception(400, array('message' => $this->email->print_debugger()));
+			//echo $this->email->printDebugger(); exit;
+			return throw_exception(400, array('message' => $this->email->printDebugger()));
 		}
 		
 		$this->model->delete
