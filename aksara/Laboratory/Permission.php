@@ -32,7 +32,11 @@ class Permission
 		
 		if(!$user)
 		{
-			$this->session->destroy();
+			/* destroy previous session to prevent hijacking */
+			if(session_status() == PHP_SESSION_ACTIVE)
+			{
+				session_destroy();
+			}
 			
 			return throw_exception(403, phrase('you_do_not_have_sufficient_privileges_to_access_the_requested_page'), base_url());
 		}
