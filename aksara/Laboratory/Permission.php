@@ -79,7 +79,7 @@ class Permission
 			$method									= 'index';
 		}
 		
-		$privileges									= $this->model->select('group_privileges')->get_where('app__groups', array('group_id' => $this->session->get('group_id')), 1)->row('group_privileges');
+		$privileges									= $this->model->select('group_privileges')->get_where('app__groups', array('group_id' => service('session')->get('group_id')), 1)->row('group_privileges');
 		$privileges									= json_decode($privileges, true);
 		
 		if(isset($privileges[$module][$submodule][$controller]) && in_array($method, $privileges[$module][$submodule][$controller]))
@@ -102,7 +102,7 @@ class Permission
 			$method									= 'index';
 		}
 		
-		$privileges									= $this->model->select('group_privileges')->get_where('app__groups', array('group_id' => $this->session->get('group_id')), 1)->row('group_privileges');
+		$privileges									= $this->model->select('group_privileges')->get_where('app__groups', array('group_id' => service('session')->get('group_id')), 1)->row('group_privileges');
 		$privileges									= json_decode($privileges, true);
 		
 		if(isset($privileges[$controller]) && !in_array($method, $privileges[$controller]))
@@ -123,7 +123,7 @@ class Permission
 			$method									= 'index';
 		}
 		
-		$privileges									= $this->model->select('group_privileges')->get_where('app__groups', array('group_id' => $this->session->get('group_id')), 1)->row('group_privileges');
+		$privileges									= $this->model->select('group_privileges')->get_where('app__groups', array('group_id' => service('session')->get('group_id')), 1)->row('group_privileges');
 		$privileges									= json_decode($privileges, true);
 		
 		if(!isset($privileges[$controller]) || (isset($privileges[$controller]) && !in_array($method, $privileges[$controller])))
@@ -141,7 +141,7 @@ class Permission
 	{
 		if(!service('request')->isAJAX())
 		{
-			$this->session->setFlashdata('error', phrase('you_cannot_perform_the_requested_action'));
+			service('session')->setFlashdata('error', phrase('you_cannot_perform_the_requested_action'));
 			
 			redirect_to($redirect);
 		}
