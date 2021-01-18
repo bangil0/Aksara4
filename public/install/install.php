@@ -231,7 +231,7 @@
 			$schema									= file_get_contents('assets' . DIRECTORY_SEPARATOR . 'schema.sql');
 			
 			$schema									.= '
-				INSERT INTO app__settings
+				INSERT IGNORE INTO app__settings
 				(
 					app_name,
 					app_description,
@@ -264,7 +264,7 @@
 			';
 			
 			$schema									.= '
-				INSERT INTO app__users
+				INSERT IGNORE INTO app__users
 				(
 					first_name,
 					last_name,
