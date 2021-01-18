@@ -7,5 +7,6 @@ Aksara is a powerful framework engine to realize what's only in your dreams beco
 # Installation
 - Download the source code and extract its content to the directory of your webserver;
 - Run `composer install` from the root of Aksara directory;
-- Visit Aksara installation wizard from the browser and follow the installation instruction;
+- Access the Aksara from your browser;
+- Follow the installation instruction;
 - As simple as that!
