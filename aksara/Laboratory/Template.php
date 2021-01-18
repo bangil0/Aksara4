@@ -560,24 +560,24 @@ class Template
 	
 	public function breadcrumb($data = array(), $title = null, $found = null)
 	{
-		$slug									= null;
-		$checker								= service('request')->uri->getSegments();
-		$params									= service('request')->getGet();
-		$params['per_page']						= null;
-		$params['q']							= null;
-		$params['order']						= null;
-		$params['sort']							= null;
+		$slug										= null;
+		$checker									= service('request')->uri->getSegments();
+		$params										= service('request')->getGet();
+		$params['per_page']							= null;
+		$params['q']								= null;
+		$params['order']							= null;
+		$params['sort']								= null;
 		
 		if(!$data || !is_array($data))
 		{
 			foreach($checker as $key => $val)
 			{
-				$data[$val]						= ucwords(str_replace('_', ' ', $val));
+				$data[$val]							= ucwords(str_replace('_', ' ', $val));
 			}
 		}
 		
-		$current_slug							= end($checker);
-		$slug									= null;
+		$current_slug								= end($checker);
+		$slug										= null;
 		
 		if($this->get_theme_property('type') == 'backend')
 		{
@@ -606,27 +606,27 @@ class Template
 		
 		foreach($data as $segment => $label)
 		{
-			$slug								.= $segment . '/';
+			$slug									.= $segment . '/';
 			
 			if($segment && $label)
 			{
 				if($segment != $current_slug)
 				{
-					$output[]					= array
+					$output[]						= array
 					(
-						'url'					=> base_url($slug, $params),
-						'label'					=> ($found ? phrase($label) : ucwords($label)),
-						'icon'					=> null
+						'url'						=> base_url($slug, $params),
+						'label'						=> ($found ? phrase($label) : ucwords($label)),
+						'icon'						=> null
 					);
 				}
 			}
 		}
 		
-		$output[]								= array
+		$output[]									= array
 		(
-			'url'								=> '',
-			'label'								=> $title,
-			'icon'								=> ''
+			'url'									=> '',
+			'label'									=> $title,
+			'icon'									=> ''
 		);
 		
 		/*  remove the last element of array */
