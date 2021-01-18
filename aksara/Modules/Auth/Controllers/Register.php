@@ -278,7 +278,7 @@ class Register extends \Aksara\Laboratory\Core
 		/**
 		 * to working with Google SMTP, make sure to activate less secure apps setting
 		 */
-		$this->load->library('email');
+		$this->email								= \Config\Services::email();
 		
 		$config['useragent']       					= 'Aksara';
 		$config['protocol']							= 'smtp';
@@ -295,11 +295,11 @@ class Register extends \Aksara\Laboratory\Core
 		
 		$this->email->initialize($config);		
 		
-		$this->email->from(get_setting('smtp_email_masking'), get_setting('smtp_sender_masking'));
-		$this->email->to($email);
+		$this->email->setFrom(get_setting('smtp_email_masking'), get_setting('smtp_sender_masking'));
+		$this->email->setTo($email);
 		
-		$this->email->subject(phrase('account_activation'));
-		$this->email->message
+		$this->email->setSubject(phrase('account_activation'));
+		$this->email->setMessage
 		('
 			<!DOCTYPE html>
 			<html>
@@ -356,7 +356,7 @@ class Register extends \Aksara\Laboratory\Core
 		/**
 		 * to working with Google SMTP, make sure to activate less secure apps setting
 		 */
-		$this->load->library('email');
+		$this->email								= \Config\Services::email();
 		
 		$config['useragent']       					= 'Aksara';
 		$config['protocol']							= 'smtp';
@@ -373,11 +373,11 @@ class Register extends \Aksara\Laboratory\Core
 		
 		$this->email->initialize($config);		
 		
-		$this->email->from(get_setting('smtp_email_masking'), get_setting('smtp_sender_masking'));
-		$this->email->to($email);
+		$this->email->setFrom(get_setting('smtp_email_masking'), get_setting('smtp_sender_masking'));
+		$this->email->setTo($email);
 		
-		$this->email->subject(phrase('account_registration_successfully'));
-		$this->email->message
+		$this->email->setSubject(phrase('account_registration_successfully'));
+		$this->email->setMessage
 		('
 			<!DOCTYPE html>
 			<html>
