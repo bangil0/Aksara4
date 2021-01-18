@@ -2634,7 +2634,7 @@ class Core extends Controller
 			elseif(method_exists($this, $this->_method))
 			{
 				$this->_set_icon					= ($this->_set_icon ? $this->_set_icon : 'mdi mdi-table');
-				$this->_set_title					= ($title ? $title : ($this->_query ? phrase('title_was_not_set') : phrase('page_not_found')));
+				$this->_set_title					= ($title ? $title : ($this->_crud || $this->_query ? phrase('title_was_not_set') : phrase('page_not_found')));
 				$this->_set_description				= ($description ? $description : null);
 				$this->_view						= (isset($this->_set_template['index']) ? $this->_set_template['index'] : ($view && 'index' != $view ? $view : 'index'));
 				$this->_results						= ($this->_crud ? $this->render_table($this->_query) : $this->_query);
@@ -2644,7 +2644,7 @@ class Core extends Controller
 			else
 			{
 				$this->_set_icon					= ($this->_set_icon ? $this->_set_icon : 'mdi mdi-table');
-				$this->_set_title					= ($title ? $title : ($this->_query ? phrase('title_was_not_set') : phrase('page_not_found')));
+				$this->_set_title					= ($title ? $title : ($this->_crud || $this->_query ? phrase('title_was_not_set') : phrase('page_not_found')));
 				$this->_set_description				= ($description ? $description : null);
 				$this->_view						= (isset($this->_set_template['index']) ? $this->_set_template['index'] : ($view && 'index' != $view ? $view : 'index'));
 				$this->_results						= ($this->_crud ? $this->render_table($this->_query) : $this->_query);
