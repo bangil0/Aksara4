@@ -191,10 +191,6 @@ class Core extends Controller
 		$this->permission							= new Permission();
 		$this->form_validation						= \Config\Services::validation();
 		
-		$encryption									= new \Config\Encryption();
-		$encryption->key							= ENCRYPTION_KEY;
-		$this->encrypter							= \Config\Services::encrypter($encryption);
-		
 		$path										= strtolower(str_replace('\\', '/', service('router')->controllerName()));
 		$path										= preg_replace(array('/\/aksara\/modules\//', '/\/modules\//', '/\/controllers\//'), array(null, null, '/'), $path, 1);
 		$path										= array_unique(explode('/', $path));
@@ -7938,7 +7934,7 @@ class Core extends Controller
 						{
 							if(service('request')->getPost($field))
 							{
-								$prepare[$field]	= base64_encode($this->encrypter->encrypt(service('request')->getPost($field)));
+								$prepare[$field]	= base64_encode(service('encrypter')->encrypt(service('request')->getPost($field)));
 							}
 						}
 						elseif(in_array('image', $type))

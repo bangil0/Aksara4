@@ -12,12 +12,8 @@ class Google
 {
 	public function __construct()
 	{
-		$encryption									= new \Config\Encryption();
-		$encryption->key							= ENCRYPTION_KEY;
-		$this->encrypter							= \Config\Services::encrypter($encryption);
-		
 		$this->_client_id							= get_setting('google_client_id');
-		$this->_client_secret						= $this->encrypter->decrypt(base64_decode(get_setting('google_client_secret')));
+		$this->_client_secret						= service('encrypter')->decrypt(base64_decode(get_setting('google_client_secret')));
 		
 		$this->client								= new \Google_Client();
 		

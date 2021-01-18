@@ -69,7 +69,7 @@ class Contact extends \Aksara\Laboratory\Core
 			$config['smtp_host']					= get_setting('smtp_host');
 			$config['smtp_port']					= get_setting('smtp_port');
 			$config['smtp_user']					= get_setting('smtp_username');
-			$config['smtp_pass']					= service('encrypter')->decrypt(get_setting('smtp_password'));
+			$config['smtp_pass']					= service('encrypter')->decrypt(base64_decode(get_setting('smtp_password')));
 			$config['smtp_timeout']					= '7';
 			$config['charset']						= 'utf-8';
 			$config['newline']						= "\r\n";

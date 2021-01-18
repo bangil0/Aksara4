@@ -21,12 +21,8 @@ class Facebook
 {
 	public function __construct()
 	{
-		$encryption									= new \Config\Encryption();
-		$encryption->key							= ENCRYPTION_KEY;
-		$this->encrypter							= \Config\Services::encrypter($encryption);
-		
 		$this->_client_id							= get_setting('facebook_app_id');
-		$this->_client_secret						= $this->encrypter->decrypt(base64_decode(get_setting('facebook_app_secret')));
+		$this->_client_secret						= service('encrypter')->decrypt(base64_decode(get_setting('facebook_app_secret')));
 		
 		$this->client								= new BaseFacebook
 		(

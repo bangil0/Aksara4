@@ -168,7 +168,7 @@ class Modules extends \Aksara\Laboratory\Core
 					if($query)
 					{
 						/* configuration found, decrypt password */
-						$query->password			= $this->encrypter->decrypt(base64_decode($query->password));
+						$query->password			= service('encrypter')->decrypt(base64_decode($query->password));
 						
 						/* trying to delete module using ftp instead */
 						$this->ftp					= new \FtpClient\FtpClient();
