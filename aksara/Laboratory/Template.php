@@ -71,7 +71,7 @@ class Template
 		$current_module								= substr(service('router')->controllerName(), strrpos(service('router')->controllerName(), '\\') + 1);
 		
 		// get current module classname
-		$current_method								= service('router')->methodName();
+		$current_method								= (in_array($view, array('index', 'form', 'read')) ? service('router')->methodName() : $view);
 		
 		// strip view folder if parent current module matches with parent module
 		$base_view									= ltrim(str_replace('/Views/' . $parent_module . '/', '/Views/', $base_view), 'Modules/');
@@ -494,7 +494,10 @@ class Template
 		
 		// remove duplicate slash
 		$this->_view								= str_replace('//', '/', $this->_view);
-		
+		if(get_userdata('group_id') > 2)
+		{
+			//echo $this->_view;exit;
+		}
 		return $this->_view;
 	}
 	
