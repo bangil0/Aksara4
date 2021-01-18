@@ -85,7 +85,7 @@
 		</a>
 		&middot;
 		<a href="//codeigniter.com" target="_blank">
-			Codeigniter
+			CodeIgniter
 		</a>
 		&middot;
 		<a href="//getcomposer.org" target="_blank">
