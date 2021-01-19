@@ -246,7 +246,8 @@
 					office_address,
 					office_map,
 					frontend_registration,
-					default_membership_group
+					default_membership_group,
+					openlayers_search_provider
 				)
 				VALUES
 				(
@@ -261,7 +262,8 @@
 					"2nd Floor Example Tower Building, Some Road Name, Any Region",
 					"[]",
 					1,
-					3
+					3,
+					"openlayers"
 				);
 			';
 			

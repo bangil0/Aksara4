@@ -101,7 +101,8 @@ class Settings extends \Aksara\Laboratory\Core
 				'openlayers'						=> 'OpenLayers',
 				'google'							=> 'Google',
 				'osm'								=> 'OpenStreetMap'
-			)
+			),
+			'<br />'
 		)
 		->set_relation
 		(

@@ -190,13 +190,13 @@
 								</div>
 							</div>
 							<div class="col-md-6">
+								<div class="form-group">
+									<label class="text-muted d-block" for="username_changes_input">
+										<?php echo $results->form_data->username_changes->label; ?>
+									</label>
+									<?php echo $results->form_data->username_changes->content; ?>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="text-muted d-block" for="username_changes_input">
-								<?php echo $results->form_data->username_changes->label; ?>
-							</label>
-							<?php echo $results->form_data->username_changes->content; ?>
 						</div>
 						<hr />
 						<div class="row">
@@ -211,19 +211,25 @@
 						</div>
 					</div>
 					<div class="tab-pane fade" id="pills-apis">
-						<div class="form-group">
-							<label class="text-muted d-block" for="openlayers_search_provider_input">
-								<?php echo $results->form_data->openlayers_search_provider->label; ?>
-								<?php echo ($results->form_data->openlayers_search_provider->required ? '<span class="float-right text-sm text-danger">' . phrase('required') . '</span>' : null); ?>
-							</label>
-							<?php echo $results->form_data->openlayers_search_provider->content; ?>
-						</div>
-						<div class="form-group">
-							<label class="text-muted d-block" for="openlayers_search_key_input">
-								<?php echo $results->form_data->openlayers_search_key->label; ?>
-								<?php echo ($results->form_data->openlayers_search_key->required ? '<span class="float-right text-sm text-danger">' . phrase('required') . '</span>' : null); ?>
-							</label>
-							<?php echo $results->form_data->openlayers_search_key->content; ?>
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group">
+									<label class="text-muted d-block" for="openlayers_search_provider_input">
+										<?php echo $results->form_data->openlayers_search_provider->label; ?>
+										<?php echo ($results->form_data->openlayers_search_provider->required ? '<span class="float-right text-sm text-danger">' . phrase('required') . '</span>' : null); ?>
+									</label>
+									<?php echo $results->form_data->openlayers_search_provider->content; ?>
+								</div>
+							</div>
+							<div class="col-md-7">
+								<div class="form-group">
+									<label class="text-muted d-block" for="openlayers_search_key_input">
+										<?php echo $results->form_data->openlayers_search_key->label; ?>
+										<?php echo ($results->form_data->openlayers_search_key->required ? '<span class="float-right text-sm text-danger">' . phrase('required') . '</span>' : null); ?>
+									</label>
+									<?php echo $results->form_data->openlayers_search_key->content; ?>
+								</div>
+							</div>
 						</div>
 						<hr />
 						<div class="row">
@@ -285,6 +291,9 @@
 						<h5 class="mb-3">
 							<?php echo phrase('email_notifier'); ?>
 						</h5>
+						<div class="alert alert-warning">
+							<?php echo phrase('to_working_with_google_smtp_make_sure_to_activate_less_secure_apps_setting_on_your_google_account'); ?>
+						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
