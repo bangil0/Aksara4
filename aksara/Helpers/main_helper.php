@@ -50,6 +50,19 @@ if(!function_exists('aksara_footer'))
 	function aksara_footer()
 	{
 		$output										= show_flashdata() . "\n";
+		
+		if(get_setting('google_analytics_key'))
+		{
+			$output									.= '<script async src="https://www.googletagmanager.com/gtag/js?id=' . get_setting('google_analytics_key') . '"></script>';
+			$output									.= '<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'' . get_setting('google_analytics_key') . '\');</script>';
+		}
+		
+		if(get_setting('facebook_app_id'))
+		{
+			$output									.= '<script>window.fbAsyncInit = function() {FB.init({appId: \'' . get_setting('facebook_app_id') . '\', autoLogAppEvents: true, xfbml: true, version: \'v9.0\'});};</script>';
+			$output									.= '<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>';
+		}
+		
 		$output										.= '<script type="text/javascript" src="' . base_url('assets/js/scripts.min.js') . '"></script>' . "\n";
 		$output										.= '<script type="text/javascript">(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>' . "\n";
 		
