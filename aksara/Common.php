@@ -155,8 +155,15 @@ if(! function_exists('phrase'))
 	/**
 	 * Get phrase of translation
 	 */
-	function phrase($phrase = null, $keep_word = false)
+	function phrase($phrase = null, $keep_word = false, $check = false)
 	{
+		/* make sure the phrase and language is valid */
+		if(!$phrase)
+		{
+			/* otherwise, throwback the null result */
+			return false;
+		}
+		
 		$model										= new \Aksara\Laboratory\Model;
 		
 		/* keep original phrase as given */
@@ -170,13 +177,6 @@ if(! function_exists('phrase'))
 		
 		/* transform the phrase into safe-string */
 		$phrase										= strtolower(preg_replace('!\s+!', '_', trim(preg_replace('/([^0-9a-z])/i', ' ', $phrase))));
-		
-		/* make sure the phrase and language is valid */
-		if(!$phrase)
-		{
-			/* otherwise, throwback the null result */
-			return false;
-		}
 		
 		/* get locale by session */
 		$language_id								= (get_userdata('language_id') ? get_userdata('language_id') : (get_setting('app_language') > 0 ? get_setting('app_language') : 1));
@@ -197,7 +197,7 @@ if(! function_exists('phrase'))
 		
 		$translation_file							= WRITEPATH . 'translations' . DIRECTORY_SEPARATOR . $language . '.json';
 		
-		if(!file_exists($translation_file))
+		if(!$check && !file_exists($translation_file))
 		{
 			if(!is_dir(WRITEPATH . 'translations') && @mkdir(WRITEPATH . 'translations', 0755, true))
 			{
@@ -225,6 +225,13 @@ if(! function_exists('phrase'))
 		}
 		else
 		{
+			/* skip put new phrase if check is applied */
+			if($check)
+			{
+				/* return formatted phrase */
+				return ucwords(str_replace('_', ' ', $phrase));
+			}
+			
 			/* set new phrase and push into existing */
 			$language[$phrase]						= (!$keep_word ? ucwords(str_replace('_', ' ', $phrase)) : $original_phrase);
 			
@@ -238,7 +245,7 @@ if(! function_exists('phrase'))
 			}
 			
 			/* throwback the result */
-			return str_replace('\'', '', $language[$phrase]);
+			return str_replace('\'', '&apos;', $language[$phrase]);
 		}
 	}
 }
