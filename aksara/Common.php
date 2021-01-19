@@ -221,7 +221,7 @@ if(! function_exists('phrase'))
 		if(isset($language[$phrase]))
 		{
 			/* throwback the translated phrase */
-			return str_replace('\'', '&apos;', $language[$phrase]);
+			return preg_replace('/"([^<>]*?)"(?=[^>]*?<)/', '&raquo;\1&laquo', str_replace('\'', '&apos;', $language[$phrase]));
 		}
 		else
 		{
@@ -245,7 +245,7 @@ if(! function_exists('phrase'))
 			}
 			
 			/* throwback the result */
-			return str_replace('\'', '&apos;', $language[$phrase]);
+			return preg_replace('/"([^<>]*?)"(?=[^>]*?<)/', '&raquo;\1&laquo', str_replace('\'', '&apos;', $language[$phrase]));
 		}
 	}
 }

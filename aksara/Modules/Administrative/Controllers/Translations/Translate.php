@@ -197,7 +197,7 @@ class Translate extends \Aksara\Laboratory\Core
 				{
 					if(service('request')->getGet('keyword') && stripos($val, service('request')->getGet('keyword')) === false) continue;
 					
-					$phrases[$key]					= $val;
+					$phrases[$key]					= htmlspecialchars($val);
 				}
 			}
 			
