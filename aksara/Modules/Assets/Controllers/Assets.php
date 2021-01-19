@@ -16,7 +16,7 @@ class Assets extends \Aksara\Laboratory\Core
 	{
 		parent::__construct();
 		
-		if(get_userdata('language') && in_array(get_userdata('language'), array('arabic')))
+		if(get_userdata('language') && in_array(get_userdata('language'), array('ar')))
 		{
 			$this->_rtl								= true;
 		}
@@ -125,7 +125,7 @@ class Assets extends \Aksara\Laboratory\Core
 				app_icon: "' . htmlspecialchars(get_image('settings', get_setting('app_icon'), 'icon')) . '",
 				content_wrapper: "#content-wrapper",
 				registration_enabled: ' . (int) get_setting('frontend_registration') . ',
-				language: "' . htmlspecialchars(get_setting('language_code')) . '",
+				language: "' . htmlspecialchars(get_userdata('language')) . '",
 				openlayers_search_provider: "' . htmlspecialchars(get_setting('openlayers_search_provider')) . '",
 				openlayers_search_key: "' . htmlspecialchars(get_setting('openlayers_search_key')) . '",
 				map_center: ' . (json_decode(get_setting('office_map')) ? get_setting('office_map') : '{}') . ',
@@ -164,9 +164,9 @@ class Assets extends \Aksara\Laboratory\Core
 	
 	private function _i18n()
 	{
-		if(file_exists(WRITEPATH . 'translations' . DIRECTORY_SEPARATOR . get_setting('language_code') . '.json'))
+		if(file_exists(WRITEPATH . 'translations' . DIRECTORY_SEPARATOR . get_userdata('language') . '.json'))
 		{
-			return file_get_contents(WRITEPATH . 'translations' . DIRECTORY_SEPARATOR . get_setting('language_code') . '.json');
+			return file_get_contents(WRITEPATH . 'translations' . DIRECTORY_SEPARATOR . get_userdata('language') . '.json');
 		}
 		
 		return '[]';

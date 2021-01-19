@@ -8514,6 +8514,8 @@ class Core extends Controller
 		/* set default language */
 		if(is_dir(APPPATH . 'Language/' . $language_code))
 		{
+			set_userdata('language', $language_code);
+			
 			service('request')->setLocale($language_code);
 		}
 	}
