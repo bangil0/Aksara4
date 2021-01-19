@@ -17,7 +17,7 @@ if(!function_exists('get_file'))
 	 */
 	function get_file($path = null, $file = null)
 	{
-		return base_url('uploads/' . ($path ? '/' . $path : null) . $file);
+		return base_url(UPLOAD_PATH . '/' . ($path ? $path . '/' : null) . $file);
 	}
 }
 
@@ -30,18 +30,18 @@ if(!function_exists('get_image'))
 	{
 		if($dimension == 'thumb')
 		{
-			$placeholder							= 'uploads/' . ($type ? $type . '/' : null) . 'thumbs/placeholder.png';
-			$file									= 'uploads/' . ($type ? $type . '/' : null) . 'thumbs/' . $name;
+			$placeholder							= UPLOAD_PATH . '/' . ($type ? $type . '/' : null) . 'thumbs/placeholder.png';
+			$file									= UPLOAD_PATH . '/' . ($type ? $type . '/' : null) . 'thumbs/' . $name;
 		}
 		elseif($dimension == 'icon')
 		{
-			$placeholder							= 'uploads/' . ($type ? $type . '/' : null) . 'icons/placeholder.png';
-			$file									= 'uploads/' . ($type ? $type . '/' : null) . 'icons/' . $name;
+			$placeholder							= UPLOAD_PATH . '/' . ($type ? $type . '/' : null) . 'icons/placeholder.png';
+			$file									= UPLOAD_PATH . '/' . ($type ? $type . '/' : null) . 'icons/' . $name;
 		}
 		else
 		{
-			$placeholder							= 'uploads/' . ($type ? $type . '/' : null) . 'placeholder.png';
-			$file									= 'uploads/' . ($type ? $type . '/' : null) . $name;
+			$placeholder							= UPLOAD_PATH . '/' . ($type ? $type . '/' : null) . 'placeholder.png';
+			$file									= UPLOAD_PATH . '/' . ($type ? $type . '/' : null) . $name;
 		}
 		
 		if(is_file($file) && file_exists($file))
@@ -71,10 +71,10 @@ if(!function_exists('get_filesize'))
 	/**
 	 * Get file size
 	 */
-	function get_filesize($source = null)
+	function get_filesize($path = null, $file = null)
 	{
 		$size										= array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
-		$bytes										= @filesize($file);
+		$bytes										= @filesize(FCPATH . UPLOAD_PATH . '/' . ($path ? $path . '/' : null) . $file);
 		$factor										= floor((strlen($bytes) - 1) / 3);
 		
 		return sprintf('%.2f', ($bytes / pow(1024, $factor))) . @$size[$factor];

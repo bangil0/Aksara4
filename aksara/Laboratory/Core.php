@@ -3376,8 +3376,8 @@ class Core extends Controller
 						{
 							foreach($original as $src => $label)
 							{
-								$url				= base_url(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src);
-								$filesize			= get_filesize(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src);
+								$url				= get_file($this->_set_upload_path, $src);
+								$filesize			= get_filesize($this->_set_upload_path, $src);
 								$filesize			= str_replace(array('kb', 'mb', 'gb', 'b', '.'), '', strtolower($filesize));
 								$files[]			= array
 								(
@@ -3408,8 +3408,8 @@ class Core extends Controller
 						{
 							foreach($original as $src => $label)
 							{
-								$url				= base_url(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src);
-								$filesize			= get_filesize(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src);
+								$url				= get_file($this->_set_upload_path, $src);
+								$filesize			= get_filesize($this->_set_upload_path, $src);
 								$filesize			= str_replace(array('kb', 'mb', 'gb', 'b', '.'), '', strtolower($filesize));
 								$files[]			= array
 								(
@@ -4359,9 +4359,9 @@ class Core extends Controller
 					{
 						foreach($original as $src => $label);
 						
-						$filesize					= get_filesize(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src);
+						$filesize					= get_filesize($this->_set_upload_path, $src);
 						$content					= '
-							<a href="' . base_url(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src) . '" target="_blank" data-toggle="tooltip" title="' . $filesize . ', ' . phrase('click_to_open') . '">
+							<a href="' . get_file($this->_set_upload_path, $src) . '" target="_blank" data-toggle="tooltip" title="' . $filesize . ', ' . phrase('click_to_open') . '">
 								' . ($label ? $label : $src) . '
 							</a>
 						';
@@ -4377,13 +4377,13 @@ class Core extends Controller
 					{
 						foreach($original as $src => $label)
 						{
-							$filesize				= get_filesize(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src);
+							$filesize				= get_filesize($this->_set_upload_path, $src);
 							$ext					= strtolower(pathinfo($src, PATHINFO_EXTENSION));
 							
 							if(in_array($ext, array('jpg', 'jpeg', 'png', 'gif', 'bmp')))
 							{
 								$images				.= '
-									<a href="' . base_url(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src) . '" target="_blank">
+									<a href="' . get_image($this->_set_upload_path, $src) . '" target="_blank">
 										<img src="' . get_image($this->_set_upload_path, $src, 'icon') . '" class="img-fluid rounded" alt="' . $src . '" />
 									</a>
 								';
@@ -4391,7 +4391,7 @@ class Core extends Controller
 							else
 							{
 								$files				.= '
-									<a href="' . base_url($this->_set_upload_path . '/' . $this->_set_upload_path . '/' . $src) . '" target="_blank" data-toggle="tooltip" title="' . $filesize . ', ' . phrase('click_to_open') . '">
+									<a href="' . get_file($this->_set_upload_path, $src) . '" target="_blank" data-toggle="tooltip" title="' . $filesize . ', ' . phrase('click_to_open') . '">
 										<label class="d-block">
 											' . ($label ? $label : $src) . '
 										</label>
@@ -4870,9 +4870,9 @@ class Core extends Controller
 						if($original)
 						{
 							foreach($original as $src => $label);
-							$filesize				= get_filesize(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src);
+							$filesize				= get_filesize($this->_set_upload_path, $src);
 							$content				= '
-								<a href="' . base_url(UPLOAD_PATH . '/' . $this->_set_upload_path . '/' . $src) . '" target="_blank" data-toggle="tooltip" title="' . $filesize . ', ' . phrase('click_to_open') . '">
+								<a href="' . get_file($this->_set_upload_path, $src) . '" target="_blank" data-toggle="tooltip" title="' . $filesize . ', ' . phrase('click_to_open') . '">
 									<b>
 										' . truncate($label, 10) . '
 									</b>
