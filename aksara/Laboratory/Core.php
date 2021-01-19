@@ -220,7 +220,7 @@ class Core extends Controller
 				array
 				(
 					'_token'						=> sha1(current_page() . ENCRYPTION_KEY . get_userdata('session_generated')),
-					'callback'						=> current_page(null, array_merge(service('request')->getPost(), array('aksara' => generate_token(service('request')->getPost()))))
+					'callback'						=> current_page(null, array_merge(service('request')->getPost(), array('aksara' => generate_token(service('request')->getPost()), 'request' => null)))
 				)
 			);
 		}

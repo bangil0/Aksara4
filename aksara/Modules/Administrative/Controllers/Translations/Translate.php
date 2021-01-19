@@ -195,7 +195,7 @@ class Translate extends \Aksara\Laboratory\Core
 			{
 				foreach($phrase as $key => $val)
 				{
-					if(service('request')->getGet('keyword') && stripos($val, service('request')->getGet('keyword')) === false) continue;
+					if(service('request')->getGet('q') && stripos($val, service('request')->getGet('q')) === false) continue;
 					
 					$phrases[$key]					= htmlspecialchars($val);
 				}
