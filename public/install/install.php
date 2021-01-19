@@ -1,9 +1,11 @@
 <?php
 	session_start();
 	
+	require_once 'includes/function.php';
+	
 	if(!is_dir(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'vendor'))
 	{
-		exit('Please run "<code>composer install</code>" from "<code>' . dirname(dirname(__DIR__)) . '</code>" first to fetch the required repository!');
+		exit(phrase('please_run') . ' "<code>composer install</code>" ' . phrase('from') . ' "<code>' . dirname(dirname(__DIR__)) . '</code>" ' . phrase('to_fetch_the_required_repository_before_we_start_the_installation_wizard'));
 	}
 	
 	elseif(file_exists(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config.php'))
@@ -86,18 +88,18 @@
 	{
 		$ftp_form									= '
 			<label class="d-block">
-				<input type="checkbox" name="request_config" value="1"  /> <b>CLICK HERE</b> to upload config file manually after installation
+				<input type="checkbox" name="request_config" value="1"  /> ' . phrase('click_here_to_upload_configuration_file_manually_after_installation') . '
 			</label>
 			<div class="using_ftp">
 				<hr />
 				<p>
-					<b>OR</b> fill the field below with your FTP account to try writing configuration file over FTP.
+					' . phrase('or_fill_the_field_below_with_your_ftp_account_to_try_writing_the_configuration_file_over_ftp') . '
 				</p>
 				<div class="row">
 					<div class="col-sm-9">
 						<div class="form-group mb-2">
 							<label class="d-block text-muted mb-1">
-								Hostname
+								' . phrase('hostname') . '
 							</label>
 							<input type="text" name="ftp_host" class="form-control form-control-sm" placeholder="e.g: ftp.example.com" value="' . (isset($_POST['ftp_host']) ? $_POST['ftp_host'] : null) . '" />
 						</div>
@@ -105,7 +107,7 @@
 					<div class="col-sm-3">
 						<div class="form-group mb-2">
 							<label class="d-block text-muted mb-1">
-								Port
+								' . phrase('port') . '
 							</label>
 							<input type="text" name="ftp_port" class="form-control form-control-sm" placeholder="e.g: 21" value="' . (isset($_POST['ftp_port']) ? $_POST['ftp_port'] : null) . '" />
 						</div>
@@ -115,7 +117,7 @@
 					<div class="col-sm-6">
 						<div class="form-group mb-2">
 							<label class="d-block text-muted mb-1">
-								Username
+								' . phrase('username') . '
 							</label>
 							<input type="text" name="ftp_user" class="form-control form-control-sm" placeholder="e.g: root" value="' . (isset($_POST['ftp_user']) ? $_POST['ftp_user'] : null) . '" />
 						</div>
@@ -123,7 +125,7 @@
 					<div class="col-sm-6">
 						<div class="form-group mb-2">
 							<label class="d-block text-muted mb-1">
-								Password
+								' . phrase('password') . '
 							</label>
 							<input type="password" name="ftp_password" class="form-control form-control-sm" placeholder="Your FTP password" value="' . (isset($_POST['ftp_password']) ? $_POST['ftp_password'] : null) . '" />
 						</div>
@@ -131,9 +133,9 @@
 				</div>
 				<div class="form-group mb-2">
 					<label class="d-block text-muted mb-1">
-						Install Path
+						' . phrase('installation_path') . '
 					</label>
-					<input type="text" name="ftp_directory" class="form-control form-control-sm" placeholder="Path to install Aksara" value="' . (isset($_POST['ftp_directory']) ? $_POST['ftp_directory'] : dirname(dirname(dirname(__FILE__)))) . '" />
+					<input type="text" name="ftp_directory" class="form-control form-control-sm" placeholder="' . phrase('path_to_install_aksara') . '" value="' . (isset($_POST['ftp_directory']) ? $_POST['ftp_directory'] : dirname(dirname(dirname(__FILE__)))) . '" />
 				</div>
 			</div>
 		';
@@ -167,7 +169,7 @@
 						array
 						(
 							'status'				=> 403,
-							'message'				=> 'Cannot write file using FTP. Please check if the Aksara install path is correct.<hr />' . $ftp_form
+							'message'				=> phrase('cannot_write_file_using_ftp') . ' ' . phrase('please_check_if_the_aksara_installation_path_is_correct') . '<hr />' . $ftp_form
 						)
 					);
 					
@@ -181,7 +183,7 @@
 					array
 					(
 						'status'					=> 403,
-						'message'					=> 'Couldn\'t connect to FTP server using provided settings!<hr />' . $ftp_form
+						'message'					=> phrase('could_not_connect_to_ftp_server_using_the_provided_settings') . '<hr />' . $ftp_form
 					)
 				);
 				
@@ -196,12 +198,12 @@
 				
 				if(!$handle)
 				{
-					throw new \RuntimeException('Failed to open or create config file!');
+					throw new \RuntimeException(phrase('failed_to_open_or_create_the_configuration_file'));
 				}
 				
 				if(!fwrite($handle, $source))
 				{
-					throw new \RuntimeException('Failed to write configuration into config file!');
+					throw new \RuntimeException(phrase('failed_to_write_the_configuration_into_file'));
 				}
 				
 				fclose($handle);
@@ -297,7 +299,7 @@
 			
 			if('MySQLi' == $_SESSION['database']['driver'])
 			{
-				$connection							= new mysqli($_SESSION['database']['hostname'], $_SESSION['database']['username'], $_SESSION['database']['password'], $_SESSION['database']['initial'], (is_int($_SESSION['database']['port']) ? $_SESSION['database']['port'] : 3306));
+				$connection							= new \mysqli($_SESSION['database']['hostname'], $_SESSION['database']['username'], $_SESSION['database']['password'], $_SESSION['database']['initial'], (is_int($_SESSION['database']['port']) ? $_SESSION['database']['port'] : 3306));
 				
 				if(!$connection->connect_errno)
 				{
@@ -316,6 +318,9 @@
 					}
 					
 					$connection->multi_query($schema);
+					
+					// wait till the multi query being executed completelly
+					while($connection->next_result());
 					
 					if($connection->connect_errno)
 					{
@@ -400,7 +405,7 @@
 			
 			elseif('SQLite3' == $_SESSION['database']['driver'])
 			{
-				$connection							= new SQLite3($_SESSION['database']['hostname']);
+				$connection							= new \SQLite3($_SESSION['database']['hostname']);
 				
 				if($connection)
 				{
@@ -433,7 +438,7 @@
 			
 			if(!$error)
 			{
-				$zip								= new ZipArchive();
+				$zip								= new \ZipArchive();
 				$unzip								= $zip->open('assets' . DIRECTORY_SEPARATOR . 'sample-module.zip');
 				
 				if($unzip === true)
@@ -454,7 +459,7 @@
 		}
 		else
 		{
-			$error									= 'Please choose the correct database driver!';
+			$error									= phrase('please_choose_the_correct_database_driver');
 		}
 		
 		if($error)
@@ -474,30 +479,32 @@
 	
 	$html											= '
 		<h4>
-			Congratulations!
+			' . phrase('congratulations') . '
 		</h4>
 		<p>
-			<a href="//www.aksaracms.com" class="text-primary text-decoration-none" target="_blank"><b>Aksara</b></a> has been successfully installed on your system.
+			' . phrase('aksara_has_been_successfully_installed_on_your_system') . '
 		</p>
 		' . ((isset($_POST['request_config']) && 1 == $_POST['request_config']) || (isset($_GET['validate_config']) && 1 == $_GET['validate_config']) ? '
 		<hr class="row" />
 		<div class="alert alert-warning">
-			<h4>
-				Notice
-			</h4>
+			<h5>
+				' . phrase('notice') . '
+			</h5>
 			<p>
-				Your configuration file or folder is not writable or there was a problem creating the configuration file. You will have to create the following code by hand in ' . dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . '<b>config.php</b> manually and click on revalidate config button.
+				' . phrase('your_configuration_file_or_folder_is_not_writable_or_there_was_a_problem_creating_the_configuration_file') . '
+				' . phrase('you_will_have_to_create_the_following_code_by_hand_manually_and_locate_to_following_directory') . ' ' . dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . '<b>config.php</b>.
+				' . phrase('revalidate_configuration_after_the_configuration_file_is_created_or_uploaded') . '
 			</p>
 			<textarea rows="10" class="form-control" onclick="this.focus();this.select()">' . $source . '</textarea>
 		</div>
 		' : null) . '
 		<hr class="row" />
 		<p class="mb-0">
-			You can login as superuser with following credential:
+			' . phrase('you_can_login_as_superuser_using_following_credential') . '
 		</p>
 		<div class="row">
 			<div class="col-4 font-weight-bold">
-				Username
+				' . phrase('username') . '
 			</div>
 			<div class="col-8">
 				' . $_SESSION['security']['username'] . '
@@ -505,7 +512,7 @@
 		</div>
 		<div class="row form-group">
 			<div class="col-4 font-weight-bold">
-				Password
+				' . phrase('password') . '
 			</div>
 			<div class="col-8">
 				' . $_SESSION['security']['password'] . '
@@ -518,16 +525,17 @@
 			</div>
 			<div class="col-md-7">
 				<p>
-					If you find this useful, follow my updates to get my other works!
+					' . phrase('follow_our_updates_to_get_our_other_works_if_you_find_this_useful') . '
 				</p>
 				<p>
-					Just to remind you, i also <b>collect donations</b> from people like you to <b>support my research</b>.
+					' . phrase('just_to_remind_you') . '
+					' . phrase('we_also_collect_donations_from_people_like_you_to_support_our_research') . '
 				</p>
 				<p>
-					Regardless of the amount, it will be very useful.
+					' . phrase('regardless_of_the_amount_will_very_useful') . '
 				</p>
 				<p>
-					Cheers,
+					' . phrase('cheers') . ',
 					<br />
 					<a href="//abydahana.github.io" class="text-primary text-decoration-none" target="_blank">
 						<b>Aby Dahana</b>
@@ -541,7 +549,7 @@
 				&nbsp;
 			</div>
 			<div class="col-sm-6">
-				' . (file_exists(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config.php') ? '<a href="' . (!$_SESSION['system']['mode'] && $unzip ? '../xhr/boot' : '../home/partial_error') . '" class="btn btn-warning btn-block font-weight-bold">Launch Your App</a>' : '<a href="install.php?validate_config=1" class="btn btn-warning btn-block font-weight-bold --xhr">Revalidate Config</a>') . '
+				' . (file_exists(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config.php') ? '<a href="' . (!$_SESSION['system']['mode'] && $unzip ? '../xhr/boot' : '../home/partial_error') . '" class="btn btn-warning btn-block font-weight-bold">' . phrase('launch_your_site') . '</a>' : '<a href="install.php?validate_config=1" class="btn btn-warning btn-block font-weight-bold --xhr">' . phrase('revalidate_configuration') . '</a>') . '
 			</div>
 		</div>
 	';

@@ -1,7 +1,11 @@
 <?php
+	session_start();
+	
+	require_once 'includes/function.php';
+	
 	if(!is_dir(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'vendor'))
 	{
-		exit('Please run "<code>composer install</code>" from "<code>' . dirname(dirname(__DIR__)) . '</code>" first to fetch the required repository!');
+		exit(phrase('please_run') . ' "<code>composer install</code>" ' . phrase('from') . ' "<code>' . dirname(dirname(__DIR__)) . '</code>" ' . phrase('to_fetch_the_required_repository_before_we_start_the_installation_wizard'));
 	}
 	
 	elseif(file_exists(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config.php'))
@@ -9,11 +13,16 @@
 		header('Location: ../');
 		exit;
 	}
+	
+	if(isset($_GET['language']) && in_array($_GET['language'], array('en', 'id')))
+	{
+		$_SESSION['language']						= $_GET['language'];
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Aksara Installer</title>
+		<title><?php echo phrase('aksara_installer'); ?></title>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="msapplication-navbutton-color" content="#007bff" />
@@ -48,31 +57,31 @@
 										<hr class="row" />
 										<p class="step requirement">
 											<b>
-												Checking Requirements
+												<?php echo phrase('checking_requirements'); ?>
 											</b>
 										</p>
 										<hr />
 										<p class="step database">
 											<b>
-												Database Configuration
+												<?php echo phrase('database_configuration'); ?>
 											</b>
 										</p>
 										<hr />
 										<p class="step security">
 											<b>
-												Security Configuration
+												<?php echo phrase('security_configuration'); ?>
 											</b>
 										</p>
 										<hr />
 										<p class="step system">
 											<b>
-												System Configuration
+												<?php echo phrase('system_configuration'); ?>
 											</b>
 										</p>
 										<hr />
 										<p class="step final">
 											<b>
-												Finalizing
+												<?php echo phrase('finalizing'); ?>
 											</b>
 										</p>
 									</div>
@@ -80,38 +89,49 @@
 								<div class="col-md-8 pt-3 pb-3">
 									<div class="sticky-top step-content" style="top:15px">
 										<form action="requirement.php" method="POST" class="--validate-form">
-											<h4>
-												Hello there...
-											</h4>
+											<div class="row">
+												<div class="col-7">
+													<h4>
+														<?php echo phrase('hello_there'); ?>
+													</h4>
+												</div>
+												<div class="col-5">
+													<select name="language" class="form-control form-control-sm" placeholder="<?php echo phrase('choose_language'); ?>">
+														<option value="en"<?php echo (isset($_SESSION['language']) && $_SESSION['language'] == 'en' ? ' selected' : null); ?>>English</option>
+														<option value="id"<?php echo (isset($_SESSION['language']) && $_SESSION['language'] == 'id' ? ' selected' : null); ?>>Indonesia</option>
+													</select>
+												</div>
+											</div>
 											<p>
-												Thank you for choosing <a href="//www.aksaracms.com" class="text-primary text-decoration-none" target="_blank"><b>Aksara</b></a>!
+												<?php echo phrase('thank_you_for_choosing_aksara'); ?>
 											</p>
 											<hr class="row" />
 											<p>
-												Before we start the installation, please take a moment to read this few notes. You could check the "<b>Agreement</b>" box and skip reading as usual but i still believe there's a "<b>Nerd</b>" that would read my notes sentence by sentences.
+												<?php echo phrase('before_we_start_the_installation_please_take_a_moment_to_read_this_few_notes'); ?>
+												<?php echo phrase('you_could_check_the_agreement_box_and_skip_reading_as_usual'); ?>
 											</p>
 											<ol>
 												<li>
 													<p>
-														<a href="//www.aksaracms.com" class="text-primary text-decoration-none" target="_blank"><b>Aksara</b></a> is just a tool to build the ecosystems according to your needs. But something you built with <a href="//www.aksaracms.com" class="text-primary text-decoration-none" target="_blank"><b>Aksara</b></a> should be subjected to it;
+														<?php echo phrase('article_1'); ?>
 													</p>
 												</li>
 												<li>
 													<p>
-														You're allowed to re-distribute the ecosystems you built with <a href="//www.aksaracms.com" class="text-primary text-decoration-none" target="_blank"><b>Aksara</b></a> without any concern of my permission, however admitting it was built by you as a whole is a shame;
+														<?php echo phrase('article_2'); ?>
 													</p>
 												</li>
 												<li>
 													<p>
-														Never disappoint the creative people who share their work for free, or you'll find them selling their future idea at prices you can't reach.
+														<?php echo phrase('article_3'); ?>
 													</p>
 												</li>
 											</ol>
 											<p>
-												Three notes should be enough. I look forward to your support!
+												<?php echo phrase('three_notes_should_be_enough'); ?> <?php echo phrase('i_look_forward_to_your_support'); ?>
 											</p>
 											<p class="mb-0">
-												The fool,
+												<?php echo phrase('the_fool'); ?>,
 											</p>
 											<p class="mb-0">
 												<a href="//abydahana.github.io" class="text-primary text-decoration-none" target="_blank">
@@ -125,12 +145,12 @@
 												<div class="col-md-6">
 													<label>
 														<input type="checkbox" name="agree" value="1" />
-														Pretend to agree
+														<?php echo phrase('pretend_to_agree'); ?>
 													</label>
 												</div>
 												<div class="col-md-6 text-right">
 													<button type="submit" class="btn btn-primary btn-block" disabled>
-														Start Installation
+														<?php echo phrase('start_installation'); ?>
 													</button>
 												</div>
 											</div>
@@ -149,6 +169,11 @@
 		<script type="text/javascript">
 			$(document).ready(function()
 			{
+				$('body').on('change', 'select[name=language]', function(e)
+				{
+					window.location.href			= '?language=' + $(this).val()
+				}),
+				
 				$('body').on('click change', 'input[name=agree]', function(e)
 				{
 					if($(this).is(':checked'))
@@ -195,7 +220,7 @@
 						}
 						else if(response.status !== 200)
 						{
-							$('<div class="alert alert-warning failure"><b>Whoops!</b> ' + response.message + '</div>').prependTo('.--validate-form'),
+							$('<div class="alert alert-warning failure"><b><?php echo phrase('whoops'); ?></b> ' + response.message + '</div>').prependTo('.--validate-form'),
 							$('html, body').animate
 							({
 								scrollTop: $('.failure').offset().top - 60
@@ -209,7 +234,7 @@
 					.fail(function(response, status, error)
 					{
 						$(this).find('button[type=submit]').prop('disabled', false),
-						$('<div class="alert alert-danger failure"><b>Whoops!</b> ' + error + '</div>').prependTo('.--validate-form'),
+						$('<div class="alert alert-danger failure"><b><?php echo phrase('whoops'); ?></b> ' + error + '</div>').prependTo('.--validate-form'),
 						$('html, body').animate
 						({
 							scrollTop: $('.failure').offset().top - 60
@@ -238,7 +263,7 @@
 					{
 						if(response.status !== 200)
 						{
-							$('<div class="alert alert-warning failure"><b>Whoops!</b> ' + response.message + '</div>').prependTo('.--validate-form'),
+							$('<div class="alert alert-warning failure"><b><?php echo phrase('whoops'); ?></b> ' + response.message + '</div>').prependTo('.--validate-form'),
 							$('html, body').animate
 							({
 								scrollTop: $('.failure').offset().top - 60
@@ -253,7 +278,7 @@
 					.fail(function(response, status, error)
 					{
 						$(this).find('button[type=submit]').prop('disabled', false),
-						$('<div class="alert alert-danger failure"><b>Whoops!</b> ' + error + '</div>').prependTo('.--validate-form'),
+						$('<div class="alert alert-danger failure"><b><?php echo phrase('whoops'); ?></b> ' + error + '</div>').prependTo('.--validate-form'),
 						$('html, body').animate
 						({
 							scrollTop: $('.failure').offset().top - 60

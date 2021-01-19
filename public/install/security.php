@@ -1,9 +1,11 @@
 <?php
 	session_start();
 	
+	require_once 'includes/function.php';
+	
 	if(!is_dir(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'vendor'))
 	{
-		exit('Please run "<code>composer install</code>" from "<code>' . dirname(dirname(__DIR__)) . '</code>" first to fetch the required repository!');
+		exit(phrase('please_run') . ' "<code>composer install</code>" ' . phrase('from') . ' "<code>' . dirname(dirname(__DIR__)) . '</code>" ' . phrase('to_fetch_the_required_repository_before_we_start_the_installation_wizard'));
 	}
 	
 	elseif(file_exists(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config.php'))
@@ -36,7 +38,7 @@
 			array
 			(
 				'status'							=> 403,
-				'message'							=> 'Please fill all required fields!'
+				'message'							=> phrase('please_fill_all_required_fields')
 			)
 		);
 		
@@ -80,7 +82,7 @@
 			}
 			else
 			{
-				$error								= 'Your server don\'t have PostgeSQL driver installed!';
+				$error								= phrase('your_server_do_not_have_postgresql_driver_installed');
 			}
 		}
 		elseif('SQLSRV' == $_SESSION['database']['driver'])
@@ -100,7 +102,7 @@
 			}
 			else
 			{
-				$error								= 'Your server don\'t have SQLServer driver installed!';
+				$error								= phrase('your_server_do_not_have_sqlsrv_driver_installed');
 			}
 		}
 		elseif('SQLite3' == $_SESSION['database']['driver'])
@@ -119,13 +121,13 @@
 			}
 			else
 			{
-				$error								= 'Your server don\'t have SQLite3 driver installed!';
+				$error								= phrase('your_server_do_not_have_sqlite3_driver_installed');
 			}
 		}
 	}
 	else
 	{
-		$error										= 'Please choose the correct database driver!';
+		$error										= phrase('please_choose_the_correct_database_driver');
 	}
 	
 	if($error)
@@ -145,35 +147,35 @@
 	$html											= '
 		<form action="system.php" method="POST" class="--validate-form">
 			<h4>
-				Security Configuration
+				' . phrase('security_configuration') . '
 			</h4>
 			<p>
-				Enter your secret formula to secure your application
+				' . phrase('enter_your_secret_formula_to_secure_your_application') . '
 			</p>
 			<hr class="row" />
 			<div class="form-group">
 				<label class="d-block mb-0">
-					Encryption Hash
+					' . phrase('encryption_key') . '
 					<b class="text-danger">*</b>
 				</label>
-				<input type="text" name="encryption" class="form-control form-control-sm" placeholder="Your encryption hash" value="' . (isset($_SESSION['security']['encryption']) ? $_SESSION['security']['encryption'] : null) . '" />
+				<input type="text" name="encryption" class="form-control form-control-sm" placeholder="' . phrase('your_encryption_key') . '" value="' . (isset($_SESSION['security']['encryption']) ? $_SESSION['security']['encryption'] : null) . '" />
 			</div>
 			<div class="form-group">
 				<label class="d-block mb-0">
-					Cookie Prefix
+					' . phrase('cookie_name') . '
 					<b class="text-danger">*</b>
 				</label>
-				<input type="text" name="cookie_name" class="form-control form-control-sm" placeholder="Unique cookie prefix to prevent session conflict" value="' . (isset($_SESSION['security']['cookie_name']) ? $_SESSION['security']['cookie_name'] : null) . '" />
+				<input type="text" name="cookie_name" class="form-control form-control-sm" placeholder="' . phrase('unique_cookie_name_to_prevent_conflict') . '" value="' . (isset($_SESSION['security']['cookie_name']) ? $_SESSION['security']['cookie_name'] : null) . '" />
 			</div>
 			<br/>
-			<h4>
-				Superuser
-			</h4>
+			<h5>
+				' . phrase('superuser') . '
+			</h5>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							First Name
+							' . phrase('first_name') . '
 							<b class="text-danger">*</b>
 						</label>
 						<input type="text" name="first_name" class="form-control form-control-sm" placeholder="e.g: John" value="' . (isset($_SESSION['security']['first_name']) ? $_SESSION['security']['first_name'] : null) . '" />
@@ -182,7 +184,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							Last Name
+							' . phrase('last_name') . '
 						</label>
 						<input type="text" name="last_name" class="form-control form-control-sm" placeholder="e.g: Doe" value="' . (isset($_SESSION['security']['last_name']) ? $_SESSION['security']['last_name'] : null) . '" />
 					</div>
@@ -192,7 +194,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							Email Address
+							' . phrase('email_address') . '
 							<b class="text-danger">*</b>
 						</label>
 						<input type="email" name="email" class="form-control form-control-sm" placeholder="e.g: johndoe@example.com" value="' . (isset($_SESSION['security']['email']) ? $_SESSION['security']['email'] : null) . '" />
@@ -201,10 +203,10 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							Username
+							' . phrase('username') . '
 							<b class="text-danger">*</b>
 						</label>
-						<input type="text" name="username" class="form-control form-control-sm" placeholder="Create a username for superuser" value="' . (isset($_SESSION['security']['username']) ? $_SESSION['security']['username'] : null) . '" />
+						<input type="text" name="username" class="form-control form-control-sm" placeholder="' . phrase('create_username_for_superuser') . '" value="' . (isset($_SESSION['security']['username']) ? $_SESSION['security']['username'] : null) . '" />
 					</div>
 				</div>
 			</div>
@@ -212,19 +214,19 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							Password
+							' . phrase('password') . '
 							<b class="text-danger">*</b>
 						</label>
-						<input type="password" name="password" class="form-control form-control-sm" placeholder="Password for superuser" />
+						<input type="password" name="password" class="form-control form-control-sm" placeholder="' . phrase('password_for_superuser') . '" />
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							Confirm Password
+							' . phrase('confirm_password') . '
 							<b class="text-danger">*</b>
 						</label>
-						<input type="password" name="confirm_password" class="form-control form-control-sm" placeholder="Retype password for superuser" />
+						<input type="password" name="confirm_password" class="form-control form-control-sm" placeholder="' . phrase('retype_the_password') . '" />
 					</div>
 				</div>
 			</div>
@@ -232,12 +234,12 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<a href="database.php" class="btn btn-light btn-block --xhr">
-						Back
+						' . phrase('back') . '
 					</a>
 				</div>
 				<div class="col-sm-6 text-right">
 					<button type="submit" class="btn btn-primary btn-block">
-						Continue
+						' . phrase('continue') . '
 					</button>
 				</div>
 			</div>

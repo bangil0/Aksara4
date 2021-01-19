@@ -1,9 +1,11 @@
 <?php
 	session_start();
 	
+	require_once 'includes/function.php';
+	
 	if(!is_dir(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'vendor'))
 	{
-		exit('Please run "<code>composer install</code>" from "<code>' . dirname(dirname(__DIR__)) . '</code>" first to fetch the required repository!');
+		exit(phrase('please_run') . ' "<code>composer install</code>" ' . phrase('from') . ' "<code>' . dirname(dirname(__DIR__)) . '</code>" ' . phrase('to_fetch_the_required_repository_before_we_start_the_installation_wizard'));
 	}
 	
 	elseif(file_exists(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config.php'))
@@ -26,7 +28,7 @@
 			array
 			(
 				'status'							=> 403,
-				'message'							=> 'You just need to pretend to agree, dude!'
+				'message'							=> phrase('you_just_need_to_pretend_to_agree')
 			)
 		);
 		
@@ -45,34 +47,36 @@
 	$html											= '
 		<form action="database.php" method="POST" class="--validate-form">
 			<h4>
-				Awesome!
+				' . phrase('awesome') . '
 			</h4>
 			<p>
-				You just read my notes and pretend to agree with it :)
+				' . phrase('you_just_read_our_notes_and_pretend_to_agree_with_it') . '
 			</p>
 			<hr class="row" />
 			<p>
-				I will help you to prepare your application using this installation wizard. Before you go, make sure this pre-requirements are fulfilled without any warning, otherwise your application will not work properly.
+				' . phrase('we_will_help_you_to_prepare_your_application_using_this_installation_wizard') . '
+				' . phrase('before_you_go_make_sure_this_pre_requirements_are_fulfilled_without_any_warning') . '
+				' . phrase('otherwise_your_application_will_not_work_properly') . '
 			</p>
 			<hr class="row" />
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							PHP Version
+							' . phrase('php_version') . '
 						</label>
 						<p>
-							' . (phpversion() < 7.2 ? '<b class="text-danger">' . phpversion() . '</b>, minimum version required is <b>7.2</b>' : '<b class="text-success">' . phpversion() . '</b>') . '
+							' . (phpversion() < 7.2 ? '<b class="text-danger">' . phpversion() . '</b>, ' . phrase('the_minimum_required_version_is') . ' <b>7.2</b>' : '<b class="text-success">' . phpversion() . '</b>') . '
 						</p>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							Rewrite Module
+							' . phrase('rewrite_module') . '
 						</label>
 						<p>
-							' . (!$mod_rewrite ? '<b class="text-danger">Off</b>, turn it on!</b>' : '<b class="text-success">On</b>') . '
+							' . (!$mod_rewrite ? '<b class="text-danger">' . phrase('off') . '</b>, ' . phrase('turn_it_on') . '</b>' : '<b class="text-success">' . phrase('on') . '</b>') . '
 						</p>
 					</div>
 				</div>
@@ -81,10 +85,10 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							Internationalization (intl)
+							' . phrase('internationalization') . ' (intl)
 						</label>
 						<p>
-							' . (!in_array('intl', $extension) ? '<b class="text-danger">Off</b>, turn it on!</b>' : '<b class="text-success">On</b>') . '
+							' . (!in_array('intl', $extension) ? '<b class="text-danger">' . phrase('off') . '</b>, ' . phrase('turn_it_on') . '</b>' : '<b class="text-success">' . phrase('on') . '</b>') . '
 						</p>
 					</div>
 				</div>
@@ -93,20 +97,20 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							Multibyte String (mbstring)
+							' . phrase('multibyte_string') . ' (mbstring)
 						</label>
 						<p>
-							' . (!in_array('mbstring', $extension) ? '<b class="text-danger">Off</b>, turn it on!</b>' : '<b class="text-success">On</b>') . '
+							' . (!in_array('mbstring', $extension) ? '<b class="text-danger">' . phrase('off') . '</b>, ' . phrase('turn_it_on') . '</b>' : '<b class="text-success">' . phrase('on') . '</b>') . '
 						</p>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							PHP GD
+							' . phrase('php_gd') . '
 						</label>
 						<p>
-							' . (!in_array('gd', $extension) ? '<b class="text-danger">Off</b>, turn it on!</b>' : '<b class="text-success">On</b>') . '
+							' . (!in_array('gd', $extension) ? '<b class="text-danger">' . phrase('off') . '</b>, ' . phrase('turn_it_on') . '</b>' : '<b class="text-success">' . phrase('on') . '</b>') . '
 						</p>
 					</div>
 				</div>
@@ -115,33 +119,33 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							JSON
+							' . phrase('json') . '
 						</label>
 						<p>
-							' . (!in_array('json', $extension) ? '<b class="text-danger">Off</b>, turn it on!</b>' : '<b class="text-success">On</b>') . '
+							' . (!in_array('json', $extension) ? '<b class="text-danger">' . phrase('off') . '</b>, ' . phrase('turn_it_on') . '</b>' : '<b class="text-success">' . phrase('on') . '</b>') . '
 						</p>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="d-block mb-0">
-							XML
+							' . phrase('xml') . '
 						</label>
 						<p>
-							' . (!in_array('xml', $extension) ? '<b class="text-danger">Off</b>, turn it on!</b>' : '<b class="text-success">On</b>') . '
+							' . (!in_array('xml', $extension) ? '<b class="text-danger">' . phrase('off') . '</b>, ' . phrase('turn_it_on') . '</b>' : '<b class="text-success">' . phrase('on') . '</b>') . '
 						</p>
 					</div>
 				</div>
 			</div>
-			' . ($error ? '<div class="alert alert-warning failure"><b>Whoops!</b> Some requirement aren\'t yet fulfilled! Please update your server configuration, refresh this page and try again...</div>' : null) . '
+			' . ($error ? '<div class="alert alert-warning failure"><b>' . phrase('whoops') . '</b> ' . phrase('some_requirement_are_not_yet_fulfilled') . ' ' . phrase('please_update_your_server_configuration_and_click_on_refresh_button_to_continue_the_installation') : null) . '
 			<hr class="row" />
 			<div class="row">
 				<div class="col-md-6">
-					' . ($error ? '<a href="requirement.php" class="btn btn-light btn-block --xhr">Refresh</a>' : '&nbsp;') . '
+					' . ($error ? '<a href="requirement.php" class="btn btn-light btn-block --xhr">' . phrase('refresh') . '</a>' : '&nbsp;') . '
 				</div>
 				<div class="col-md-6 text-right">
 					<button type="submit" class="btn btn-primary btn-block"' . ($error ? ' disabled' : null) . '>
-						Continue
+						' . phrase('continue') . '
 					</button>
 				</div>
 			</div>

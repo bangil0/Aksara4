@@ -1,9 +1,11 @@
 <?php
 	session_start();
 	
+	require_once 'includes/function.php';
+	
 	if(!is_dir(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'vendor'))
 	{
-		exit('Please run "<code>composer install</code>" from "<code>' . dirname(dirname(__DIR__)) . '</code>" first to fetch the required repository!');
+		exit(phrase('please_run') . ' "<code>composer install</code>" ' . phrase('from') . ' "<code>' . dirname(dirname(__DIR__)) . '</code>" ' . phrase('to_fetch_the_required_repository_before_we_start_the_installation_wizard'));
 	}
 	
 	elseif(file_exists(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config.php'))
@@ -35,39 +37,39 @@
 	
 	if(!in_array($_SESSION['system']['timezone'], DateTimeZone::listIdentifiers(DateTimeZone::ALL)))
 	{
-		$error										= 'The timezone isn\'t valid!';
+		$error										= phrase('the_timezone_is_not_valid');
 	}
 	elseif(!$_SESSION['system']['site_title'])
 	{
-		$error										= 'The site title cannot be empty!';
+		$error										= phrase('the_site_title_cannot_be_empty');
 	}
 	elseif(!$_SESSION['system']['site_description'])
 	{
-		$error										= 'The site description cannot be empty!';
+		$error										= phrase('the_site_description_cannot_be_empty');
 	}
 	elseif(!$_SESSION['system']['file_extension'])
 	{
-		$error										= 'File extension must be comma separated alphanumeric only!';
+		$error										= phrase('file_extension_must_be_comma_separated_alphanumeric_only');
 	}
 	elseif(!$_SESSION['system']['image_extension'])
 	{
-		$error										= 'Image extension must be comma separated alphanumeric only!';
+		$error										= phrase('image_extension_must_be_comma_separated_alphanumeric_only');
 	}
 	elseif(!$_SESSION['system']['max_upload_size'])
 	{
-		$error										= 'Max upload size must be numeric only!';
+		$error										= phrase('maximum_upload_size_must_be_numeric_only');
 	}
 	elseif(!$_SESSION['system']['image_dimension'])
 	{
-		$error										= 'Image dimension must be numeric only!';
+		$error										= phrase('image_dimension_must_be_numeric_only');
 	}
 	elseif(!$_SESSION['system']['thumbnail_dimension'])
 	{
-		$error										= 'Thumbnail dimension must be numeric only!';
+		$error										= phrase('thumbnail_dimension_must_be_numeric_only');
 	}
 	elseif(!$_SESSION['system']['icon_dimension'])
 	{
-		$error										= 'Icon dimension must be numeric only!';
+		$error										= phrase('icon_dimension_must_be_numeric_only');
 	}
 	
 	if($error)
@@ -87,31 +89,32 @@
 	$html											= '
 		<form action="install.php" method="POST" class="--validate-form">
 			<h4>
-				All Catched Up!
+				' . phrase('all_catched_up') . '
 			</h4>
 			<p>
-				Your application is ready to install with provided settings.
+				' . phrase('your_application_is_ready_to_install_with_provided_settings') . '
 			</p>
 			<hr class="row" />
 			<p>
-				Just one more step,
+				' . phrase('just_one_more_step') . '
 			</p>
 			<p>
-				Make sure what you filled in on the previous form is correct. Once you have successfully run the installer, there is no more back button.
+				' . phrase('make_sure_what_you_filled_in_on_the_previous_form_is_correct') . '
+				' . phrase('once_you_have_successfully_run_the_installer_there_is_no_more_back_button') . '
 			</p>
 			<p>
-				Click "<b>Run Installer</b>" to applying your configuration.
+				' . phrase('click_run_installer_to_applying_your_configuration') . '
 			</p>
 			<hr class="row" />
 			<div class="row">
 				<div class="col-sm-6">
 					<a href="system.php" class="btn btn-light btn-block --xhr">
-						Back
+						' . phrase('back') . '
 					</a>
 				</div>
 				<div class="col-sm-6 text-right">
 					<button type="submit" class="btn btn-primary btn-block">
-						Run Installer
+						' . phrase('run_installer') . '
 					</button>
 				</div>
 			</div>
