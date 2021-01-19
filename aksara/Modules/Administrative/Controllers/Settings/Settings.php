@@ -161,6 +161,7 @@ class Settings extends \Aksara\Laboratory\Core
 			(
 				'app_name'							=> phrase('application_name'),
 				'app_description'					=> phrase('application_description'),
+				'office_name'						=> phrase('office_name'),
 				'office_email'						=> phrase('office_email'),
 				'office_phone'						=> phrase('office_phone'),
 				'office_fax'						=> phrase('office_fax'),
