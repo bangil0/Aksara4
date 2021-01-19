@@ -447,13 +447,23 @@ class Core extends Controller
 	{
 		if(!is_array($params))
 		{
-			$params									= array
+			$this->_set_breadcrumb[$params]			= array
 			(
-				$params								=> $value
+				'label'								=> $value,
+				'translated'						=> true
 			);
 		}
-		
-		$this->_set_breadcrumb						= array_merge($this->_set_breadcrumb, $params);
+		else
+		{
+			foreach($params as $key => $val)
+			{
+				$this->_set_breadcrumb[$key]		= array
+				(
+					'label'							=> $val,
+					'translated'					=> true
+				);
+			}
+		}
 		
 		return $this;
 	}

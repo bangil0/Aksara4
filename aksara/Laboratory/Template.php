@@ -572,7 +572,11 @@ class Template
 		{
 			foreach($checker as $key => $val)
 			{
-				$data[$val]							= ucwords(str_replace('_', ' ', $val));
+				$data[$val]							= array
+				(
+					'label'							=> $val,
+					'translated'					=> false
+				);
 			}
 		}
 		
@@ -604,18 +608,18 @@ class Template
 			);
 		}
 		
-		foreach($data as $segment => $label)
+		foreach($data as $key => $val)
 		{
-			$slug									.= $segment . '/';
+			$slug									.= $key . '/';
 			
-			if($segment && $label)
+			if($key && isset($val['label']))
 			{
-				if($segment != $current_slug)
+				if($key != $current_slug)
 				{
 					$output[]						= array
 					(
 						'url'						=> base_url($slug, $params),
-						'label'						=> ($found ? phrase($label) : ucwords($label)),
+						'label'						=> ($found && !$val['translated'] ? phrase($val['label'], true, true) : $val['label']),
 						'icon'						=> null
 					);
 				}
