@@ -166,14 +166,3 @@ if(!function_exists('format_slug'))
 		return $string;
 	}
 }
-
-if(!function_exists('strtolower_callback'))
-{
-	/**
-	 * Callback to make the string is lowercase after matches "/Views/"
-	 */
-	function strtolower_callback($string = array())
-	{
-		return '/Views/' . strtolower($string[1]);
-	}
-}

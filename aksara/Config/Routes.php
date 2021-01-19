@@ -14,7 +14,15 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * Router Setup
  * --------------------------------------------------------------------
  */
-$routes->setDefaultNamespace('Modules\Home\Controllers');
+if(file_exists(ROOTPATH . 'modules/Home/Controllers/Home.php'))
+{
+	$routes->setDefaultNamespace('Modules\Home\Controllers');
+}
+else
+{
+	$routes->setDefaultNamespace('Aksara\Modules\Home\Controllers');
+}
+
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
