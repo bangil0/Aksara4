@@ -71,8 +71,6 @@ class Document
 	
 	public function __construct()
 	{
-		// load composer
-		//require_once(ROOTPATH . 'vendor/autoload.php');
 	}
 	
 	public function generate($html = null, $filename = null, $method = 'embed', $params = array())

@@ -9,9 +9,6 @@
  * @copyright		(c) 2021 - Aksara Laboratory
  */
 
-// Include the autoloader provided in the SDK
-//require_once ROOTPATH . 'vendor/autoload.php';
-
 // Include required libraries
 use Facebook\Facebook as BaseFacebook;
 use Facebook\Exceptions\FacebookResponseException;

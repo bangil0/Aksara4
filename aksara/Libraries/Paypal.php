@@ -9,8 +9,6 @@
  * @since			version 4.0.0
  * @copyright		(c) 2021 - Aksara Laboratory
  */
-//require_once ROOTPATH . 'vendor/autoload.php';
-
 class Paypal
 {
 	public function __construct($params = array())
@@ -31,13 +29,13 @@ class Paypal
 		{
 			$payment->create($this->_api_context);
 			
-			echo $payment;
+			return $payment;
 		}
 		catch (\PayPal\Exception\PayPalConnectionException $e)
 		{
 			// This will print the detailed information on the exception.
 			//REALLY HELPFUL FOR DEBUGGING
-			echo $e->getData();
+			return $e->getData();
 		}
 	}
 }

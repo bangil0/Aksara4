@@ -9,8 +9,6 @@
  * @since			version 4.0.0
  * @copyright		(c) 2021 - Aksara Laboratory
  */
-//require_once ROOTPATH . 'vendor/autoload.php';
-
 class Midtrans
 {
 	public function __construct($params = array())
