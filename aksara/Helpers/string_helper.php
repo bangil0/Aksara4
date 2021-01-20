@@ -154,8 +154,8 @@ if(!function_exists('time_ago'))
 {
 	function time_ago($datetime = null, $full = false)
 	{
-		$now										= new DateTime;
-		$ago										= new DateTime($datetime);
+		$now										= new \DateTime;
+		$ago										= new \DateTime($datetime);
 		$diff										= $now->diff($ago);
 
 		$diff->w									= floor($diff->d / 7);
