@@ -130,6 +130,7 @@ class Register extends \Aksara\Laboratory\Core
 		/* load additional library and helper */
 		
 		$this->form_validation->setRule('first_name', phrase('first_name'), 'required|max_length[32]');
+		$this->form_validation->setRule('last_name', phrase('last_name'), 'max_length[32]');
 		$this->form_validation->setRule('username', phrase('username'), 'required|alpha_numeric|is_unique[app__users.username]');
 		$this->form_validation->setRule('email', phrase('email_address'), 'required|valid_email|is_unique[app__users.email]');
 		$this->form_validation->setRule('phone', phrase('phone_number'), 'required|min_length[8]|max_length[16]');
