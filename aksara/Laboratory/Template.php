@@ -109,15 +109,15 @@ class Template
 			// view matches with method of active theme with language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', $theme_view));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1)))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1)))))
 		{
 			// view matches with method of active theme with language and suffix but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1)));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1)));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $theme_view, 1)))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $theme_view, 1)))))
 		{
 			// view matches with method of active theme with language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $theme_view, 1)));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $theme_view, 1)));
 		}
 		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', str_replace('.php', $suffix . '.php', $theme_view))))
 		{
@@ -129,15 +129,15 @@ class Template
 			// view matches with method of active theme
 			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', $theme_view);
 		}
-		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1))))
+		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1))))
 		{
 			// view matches with method of active theme and suffix but in lowercase
-			$this->_view							= '../' . str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1));
+			$this->_view							= '../' . str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1));
 		}
-		elseif(file_exists(str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $theme_view, 1))))
+		elseif(file_exists(str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $theme_view, 1))))
 		{
 			// view matches with method of active theme but in lowercase
-			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $theme_view, 1));
+			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $theme_view, 1));
 		}
 		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace('.php', $suffix . '.php', $theme_view))))
 		{
@@ -149,15 +149,15 @@ class Template
 			// view matches with active theme with language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', $theme_view);
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1))))
 		{
 			// view matches with active theme with language and suffix but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $theme_view, 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $theme_view, 1))))
 		{
 			// view matches with active theme with language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $theme_view, 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $theme_view, 1));
 		}
 		elseif(file_exists(str_replace('.php', $suffix . '.php', $theme_view)))
 		{
@@ -169,15 +169,15 @@ class Template
 			// view matches with active theme
 			$this->_view							= '../' . $theme_view;
 		}
-		elseif(file_exists(preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1)))
+		elseif(file_exists(preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1)))
 		{
 			// view matches with active theme and suffix but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $theme_view), 1);
 		}
-		elseif(file_exists(preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $theme_view, 1)))
+		elseif(file_exists(preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $theme_view, 1)))
 		{
 			// view matches with active theme but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $theme_view, 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $theme_view, 1);
 		}
 		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)))))
 		{
@@ -189,15 +189,15 @@ class Template
 			// view matches with active theme with suffix and language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', $this->_class_view($theme_view));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)), 1))))
 		{
 			// view matches with active theme with suffix and language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)), 1));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($theme_view), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($theme_view), 1))))
 		{
 			// view matches with active theme with suffix and language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $this->_class_view($theme_view), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($theme_view), 1));
 		}
 		elseif(file_exists(str_replace('.php', $suffix . '.php', $this->_class_view($theme_view))))
 		{
@@ -209,15 +209,15 @@ class Template
 			// view matches with active theme
 			$this->_view							= '../' . $this->_class_view($theme_view);
 		}
-		elseif(file_exists(preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)), 1)))
+		elseif(file_exists(preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)), 1)))
 		{
 			// view matches with active theme with suffix but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)), 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($theme_view)), 1);
 		}
-		elseif(file_exists(preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $this->_class_view($theme_view), 1)))
+		elseif(file_exists(preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($theme_view), 1)))
 		{
 			// view matches with active theme but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/views\/(.*))/', 'self::strtolower_callback', $this->_class_view($theme_view), 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($theme_view), 1);
 		}
 		
 		/**
@@ -235,15 +235,15 @@ class Template
 			// view matches with method of public module with language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', $module_view));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1)))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1)))))
 		{
 			// view matches with method of public module with language and suffix but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1)));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1)));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $module_view, 1)))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $module_view, 1)))))
 		{
 			// view matches with method of public module with language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $module_view, 1)));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $module_view, 1)));
 		}
 		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', str_replace('.php', $suffix . '.php', $module_view))))
 		{
@@ -255,15 +255,15 @@ class Template
 			// view matches with method of public module
 			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', $module_view);
 		}
-		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1))))
+		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1))))
 		{
 			// view matches with method of public module and suffix but in lowercase
-			$this->_view							= '../' . str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1));
+			$this->_view							= '../' . str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1));
 		}
-		elseif(file_exists(str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $module_view, 1))))
+		elseif(file_exists(str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $module_view, 1))))
 		{
 			// view matches with method of public module but in lowercase
-			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $module_view, 1));
+			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $module_view, 1));
 		}
 		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace('.php', $suffix . '.php', $module_view))))
 		{
@@ -275,15 +275,15 @@ class Template
 			// view matches with public module with language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', $module_view);
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1))))
 		{
 			// view matches with public module with language and suffix but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $module_view, 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $module_view, 1))))
 		{
 			// view matches with public module with language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $module_view, 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $module_view, 1));
 		}
 		elseif(file_exists(str_replace('.php', $suffix . '.php', $module_view)))
 		{
@@ -295,15 +295,15 @@ class Template
 			// view matches with public module
 			$this->_view							= '../' . $module_view;
 		}
-		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1)))
+		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1)))
 		{
 			// view matches with public module and suffix but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $module_view), 1);
 		}
-		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $module_view, 1)))
+		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $module_view, 1)))
 		{
 			// view matches with public module but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $module_view, 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $module_view, 1);
 		}
 		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)))))
 		{
@@ -315,15 +315,15 @@ class Template
 			// view matches with public module and language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', $this->_class_view($module_view));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)), 1))))
 		{
 			// view matches with public module with suffix and language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)), 1));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($module_view), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($module_view), 1))))
 		{
 			// view matches with public module and language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($module_view), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($module_view), 1));
 		}
 		elseif(file_exists(str_replace('.php', $suffix . '.php', $this->_class_view($module_view))))
 		{
@@ -335,15 +335,15 @@ class Template
 			// view matches with public module
 			$this->_view							= '../' . $this->_class_view($module_view);
 		}
-		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)), 1)))
+		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)), 1)))
 		{
 			// view matches with public module with suffix but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)), 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($module_view)), 1);
 		}
-		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($module_view), 1)))
+		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($module_view), 1)))
 		{
 			// view matches with public module but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($module_view), 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($module_view), 1);
 		}
 		
 		/**
@@ -361,15 +361,15 @@ class Template
 			// view matches with method of core module with language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', $core_view));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1)))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1)))))
 		{
 			// view matches with method of core module with language and suffix but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1)));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1)));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $core_view, 1)))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $core_view, 1)))))
 		{
 			// view matches with method of core module with language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $core_view, 1)));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $core_view, 1)));
 		}
 		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', str_replace('.php', $suffix . '.php', $core_view))))
 		{
@@ -381,15 +381,15 @@ class Template
 			// view matches with method of core module
 			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', $core_view);
 		}
-		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1))))
+		elseif(file_exists(str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1))))
 		{
 			// view matches with method of core module and suffix but in lowercase
-			$this->_view							= '../' . str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1));
+			$this->_view							= '../' . str_replace($view . $suffix . '.php', $current_method . $suffix . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1));
 		}
-		elseif(file_exists(str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $core_view, 1))))
+		elseif(file_exists(str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $core_view, 1))))
 		{
 			// view matches with method of core module but in lowercase
-			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $core_view, 1));
+			$this->_view							= '../' . str_replace($view . '.php', $current_method . '.php', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $core_view, 1));
 		}
 		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace('.php', $suffix . '.php', $core_view))))
 		{
@@ -401,15 +401,15 @@ class Template
 			// view matches with core module with language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', $core_view);
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1))))
 		{
 			// view matches with core module with language and suffix but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $core_view), 1));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $core_view, 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $core_view, 1))))
 		{
 			// view matches with core module with language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $core_view, 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $core_view, 1));
 		}
 		elseif(file_exists(str_replace('.php', $suffix . '.php', $core_view)))
 		{
@@ -421,10 +421,10 @@ class Template
 			// view matches with core module
 			$this->_view							= '../' . $core_view;
 		}
-		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $core_view, 1)))
+		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $core_view, 1)))
 		{
 			// view matches with core module but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $core_view, 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $core_view, 1);
 		}
 		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)))))
 		{
@@ -436,15 +436,15 @@ class Template
 			// view matches with core module and language
 			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', $this->_class_view($core_view));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)), 1))))
 		{
 			// view matches with core module with suffix and language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)), 1));
 		}
-		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($core_view), 1))))
+		elseif(file_exists(preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($core_view), 1))))
 		{
 			// view matches with core module and language but in lowercase
-			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($core_view), 1));
+			$this->_view							= '../' . preg_replace('~\/(?!.*\/)~', '/' . get_userdata('language') . '/', preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($core_view), 1));
 		}
 		elseif(file_exists(str_replace('.php', $suffix . '.php', $this->_class_view($core_view))))
 		{
@@ -456,15 +456,15 @@ class Template
 			// view matches with core module
 			$this->_view							= '../' . $this->_class_view($core_view);
 		}
-		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)), 1)))
+		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)), 1)))
 		{
 			// view matches with core module with suffix but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)), 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', str_replace('.php', $suffix . '.php', $this->_class_view($core_view)), 1);
 		}
-		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($core_view), 1)))
+		elseif(file_exists(preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($core_view), 1)))
 		{
 			// view matches with core module but in lowercase
-			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::strtolower_callback', $this->_class_view($core_view), 1);
+			$this->_view							= '../' . preg_replace_callback('/(\/Views\/(.*))/', 'self::_strtolower_callback', $this->_class_view($core_view), 1);
 		}
 		
 		/**
@@ -554,7 +554,9 @@ class Template
 				)
 			);
 			
-			return service('response')->setBody(preg_replace('/<!--(.|\s)*?-->/', '', view('../../themes/' . $this->theme . '/layout', $output)))->send();
+			$output									= $this->_minify(view('../../themes/' . $this->theme . '/layout', $output));
+			
+			return service('response')->setBody($output)->send();
 		}
 	}
 	
@@ -1281,12 +1283,45 @@ class Template
 		return $output;
 	}
 	
-	private function strtolower_callback($string = array())
+	private function _strtolower_callback($string = array())
 	{
 		if(!isset($string[1])) return false;
 		
 		$rest										= substr($string[1], strpos($string[1], '/views/') + 7);
 		
 		return str_replace($rest, strtolower($rest), $string[1]);
+	}
+	
+	private function _minify($buffer = null)
+	{
+		// make a backup of "pre" tag
+		preg_match_all('#\<pre.*\>(.*)\<\/pre\>#Uis', $buffer, $pre_backup);
+		
+		$buffer										= str_replace($pre_backup[0], array_map(function($element){return '<pre>' . $element . '</pre>';}, array_keys($pre_backup[0])), $buffer);
+		
+		$search										= array
+		(
+			'/[\n\t\s]+/',			// replace end of line by space
+			'/\>[^\S ]+/s',			// strip whitespaces after tags, except space
+			'/[^\S ]+\</s',			// strip whitespaces before tags, except space
+			'/(\s)+/s',				// shorten multiple whitespace sequences
+			'/<!--(.|\s)*?-->/'		//remove HTML comments
+		);
+
+		$replace									= array
+		(
+			' ',
+			'>',
+			'<',
+			'\\1',
+			''
+		);
+		
+		$buffer										= preg_replace($search, $replace, $buffer);
+		
+		// rollback the pre tag
+		$buffer										= str_replace(array_map(function($element){return '<pre>' . $element . '</pre>';}, array_keys($pre_backup[0])), $pre_backup[0], $buffer);
+		
+		return $buffer;
 	}
 }
