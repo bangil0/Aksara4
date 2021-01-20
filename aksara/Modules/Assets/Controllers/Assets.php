@@ -24,19 +24,19 @@ class Assets extends \Aksara\Laboratory\Core
 	
 	public function themes()
 	{
-		$extension									= strtolower(pathinfo($this->request->uri->getPath(), PATHINFO_EXTENSION));
+		$extension									= strtolower(pathinfo(service('request')->uri->getPath(), PATHINFO_EXTENSION));
 		
-		if(in_array($extension, ['css', 'js', 'png', 'jpg', 'jpeg', 'gif', 'svg', 'bmp']) && file_exists('../' . $this->request->uri->getPath()))
+		if(in_array($extension, ['css', 'js', 'png', 'jpg', 'jpeg', 'gif', 'svg', 'bmp']) && file_exists('../' . service('request')->uri->getPath()))
 		{
 			helper('download');
 			
-			return force_download($this->request->uri->getPath(), file_get_contents('../' . $this->request->uri->getPath()), true);
+			return force_download(service('request')->uri->getPath(), file_get_contents('../' . service('request')->uri->getPath()), true);
 		}
 	}
 	
 	public function styles()
 	{
-		$user_agent									= $this->request->getUserAgent();
+		$user_agent									= service('request')->getUserAgent();
 		
 		$file_list									= array
 		(
@@ -65,30 +65,15 @@ class Assets extends \Aksara\Laboratory\Core
 			$output									.= @file_get_contents('local/css/override.rtl.min.css');
 		}
 		
-		$credits									= '
-		/**
-		 * سْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
-		 *
-		 * This site is built with Aksara!
-		 * A powerful framework engine to realize what\'s only
-		 * in your dream becomes something real.
-		 *
-		 * @author Aby Dahana
-		 * @profile abydahana.github.io
-		 * @website www.aksaracms.com
-		 * @copyright (c) 2021 - Aksara Laboratory
-		 */
-		';
-		
 		service('response')->setHeader('Content-Type', 'text/css');
-		service('response')->setBody(trim(preg_replace('/\t+/', '', $credits)) . "\n" . trim(preg_replace('/\s+/S', ' ', $output)));
+		service('response')->setBody(trim(preg_replace('/\s+/S', ' ', $output)));
 		
 		return service('response')->send();
 	}
 	
 	public function scripts()
 	{
-		$user_agent									= $this->request->getUserAgent();
+		$user_agent									= service('request')->getUserAgent();
 		
 		$file_list									= array
 		(
@@ -141,23 +126,8 @@ class Assets extends \Aksara\Laboratory\Core
 			$output									.= @file_get_contents($source);
 		}
 		
-		$credits									= '
-		/**
-		 * سْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
-		 *
-		 * This site is built with Aksara!
-		 * A powerful framework engine to realize what\'s only
-		 * in your dream becomes something real.
-		 *
-		 * @author Aby Dahana
-		 * @profile abydahana.github.io
-		 * @website www.aksaracms.com
-		 * @copyright (c) 2021 - Aksara Laboratory
-		 */
-		';
-		
 		service('response')->setHeader('Content-Type', 'text/javascript');
-		service('response')->setBody(trim(preg_replace('/\t+/', '', $credits)) . "\n" . trim(preg_replace('/\s+/S', ' ', $output)));
+		service('response')->setBody(trim(preg_replace('/\s+/S', ' ', $output)));
 		
 		return service('response')->send();
 	}
