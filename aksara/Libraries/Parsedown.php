@@ -335,7 +335,7 @@ class Parsedown
                     'text' => array(
                         'name' => 'code',
                         'text' => $text,
-                    )
+                    ),
                 ),
             );
 
