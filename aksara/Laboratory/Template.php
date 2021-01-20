@@ -525,7 +525,7 @@ class Template
 		/**
 		 * Build the result and send to client
 		 */
-		$this->_view								= $this->get_view($view);
+		$this->_view								= $this->get_view($view, $data);
 		
 		if((service('request')->isAJAX() && stripos(service('request')->getServer('HTTP_REFERER'), service('request')->getServer('SERVER_NAME')) !== false) || $this->_api_request)
 		{
