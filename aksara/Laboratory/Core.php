@@ -279,12 +279,7 @@ class Core extends Controller
 	 */
 	public function _remap($method = null, $segment_1 = null, $segment_2 = null, $segment_3 = null, $segment_4 = null, $segment_5 = null, $segment_6 = null)
 	{
-		if(!service('router')->getMatchedRoute())
-		{
-			// throw page not found because no matched route
-			\Aksara\Modules\Pages\Controllers\Pages::not_found();
-		}
-		elseif(method_exists($this, $method) && !in_array($method, array('insert_data', 'update_data', 'delete_data')))
+		if(method_exists($this, $method) && !in_array($method, get_class_methods($this->model)))
 		{
 			// check if method is defined in requested class
 			$this->$method($segment_1, $segment_2, $segment_3, $segment_4, $segment_5, $segment_6);
@@ -2715,7 +2710,23 @@ class Core extends Controller
 		/**
 		 * Generate output from the method
 		 */
-		if('print' == $this->_method)
+		if('delete' == $this->_method && $this->_where)
+		{
+			/**
+			 * Method delete
+			 */
+			if(1 == service('request')->getPost('batch'))
+			{
+				/* batch delete */
+				return $this->delete_batch($this->_from);
+			}
+			else
+			{
+				/* single delete */
+				return $this->delete_data($this->_from, $this->_where, $this->_limit);
+			}
+		}
+		elseif('print' == $this->_method)
 		{
 			/**
 			 * Method print
@@ -2740,22 +2751,6 @@ class Core extends Controller
 			$this->document->pageSize('13in 8.5in');
 			
 			return $this->document->generate($this->_output, $this->_set_title, ($this->_method == 'export' ? 'export' : 'embed'));
-		}
-		elseif('delete' == $this->_method)
-		{
-			/**
-			 * Method delete
-			 */
-			if(1 == service('request')->getPost('batch'))
-			{
-				/* batch delete */
-				return $this->delete_batch($this->_from);
-			}
-			else
-			{
-				/* single delete */
-				return $this->delete_data($this->_from, $this->_where, $this->_limit);
-			}
 		}
 		else
 		{
