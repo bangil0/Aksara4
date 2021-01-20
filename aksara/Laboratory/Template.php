@@ -59,7 +59,7 @@ class Template
 	/**
 	 * Scan the view file location both camelized string and lowercase
 	 */
-	public function get_view($view = 'index')
+	public function get_view($view = 'index', $data = array())
 	{
 		// route namespace controller to view
 		$base_view									= preg_replace('/modules\//i', null, ltrim(lcfirst(ltrim(str_replace('\\', '/', preg_replace('/\\\\Controllers\\\\/', '\Views\\', service('router')->controllerName(), 1) . '\\' . $view), '/')), 'aksara/'), 1);
@@ -477,19 +477,30 @@ class Template
 			// no matches view, use template instead
 			if(service('router')->getMatchedRoute())
 			{
-				if(file_exists(APPPATH . 'Views/templates/' . $view . $suffix . '.php'))
+				if($data)
 				{
-					// view matches with suffix
-					$this->_view					= 'templates/' . $view . $suffix;
+					if(file_exists(APPPATH . 'Views/templates/' . $view . $suffix . '.php'))
+					{
+						// view matches with suffix
+						$this->_view				= 'templates/' . $view . $suffix;
+					}
+					else
+					{
+						$this->_view				= 'templates/' . $view;
+					}
 				}
+				
+				// no view were found
 				else
 				{
-					$this->_view					= 'templates/' . $view;
+					$this->_view					= 'templates/error';
 				}
 			}
+			
+			// no route were found
 			else
 			{
-				$this->_view						= 'templates/404.php';
+				$this->_view						= 'templates/404';
 			}
 		}
 		

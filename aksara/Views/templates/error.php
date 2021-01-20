@@ -14,7 +14,7 @@
 							<?php echo phrase('module_structure'); ?>,
 						</li>
 						<li>
-							<?php echo phrase('incorect_view_path'); ?>,
+							<?php echo phrase('incorrect_view_path'); ?>,
 						</li>
 						<li>
 							<?php echo phrase('database_table_existence'); ?>,
