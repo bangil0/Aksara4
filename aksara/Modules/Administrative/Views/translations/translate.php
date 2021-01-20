@@ -113,7 +113,7 @@
 		<div class="opt-btn-overlap-fix d-none d-md-block"></div><!-- fix the overlap -->
 		<div class="row opt-btn">
 			<div class="col-md-12">
-				<a href="<?php echo current_page('../', array('id' => null, 'code' => null, 'per_page' => null)); ?>" class="btn btn-link --xhr">
+				<a href="<?php echo current_page('../', array('id' => null, 'code' => null, 'per_page' => null, 'q' => null)); ?>" class="btn btn-link --xhr">
 					<i class="mdi mdi-arrow-left"></i>
 					<?php echo phrase('back'); ?>
 				</a>
