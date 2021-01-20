@@ -184,7 +184,7 @@ class Model
 	 */
 	public function affected_rows()
 	{
-		return service('session')->getTempdata('affected_rows');
+		return $this->db->affectedRows();
 	}
 	
 	/**
@@ -192,7 +192,7 @@ class Model
 	 */
 	public function insert_id()
 	{
-		return service('session')->getTempdata('insert_id');
+		return $this->db->insertID();
 	}
 	
 	/**
@@ -200,7 +200,7 @@ class Model
 	 */
 	public function last_query()
 	{
-		return service('session')->getTempdata('last_query');
+		return $this->db->getLastQuery();
 	}
 	
 	/**
@@ -2033,6 +2033,7 @@ class Model
 				$builder->orderBy($key, $val['direction'], $val['escape']);
 			}
 		}
+		
 		if(in_array($result_type, array('countAll', 'countAllResults')))
 		{
 			$output									= $builder->$result_type($parameter);
@@ -2041,19 +2042,6 @@ class Model
 		{
 			$output									= $builder->get()->$result_type($parameter);
 		}
-		
-		// store temporary data to display if needed
-		service('session')->setTempdata
-		(
-			array
-			(
-				'last_query'						=> $this->db->getLastQuery(),
-				'affected_rows'						=> $this->db->affectedRows(),
-				'insert_id'							=> $this->db->insertID()
-			),
-			null,
-			30
-		);
 		
 		// reset property
 		$this->_reset_property();
