@@ -2814,7 +2814,14 @@ class Core extends Controller
 					}
 					else
 					{
-						$this->_output->pagination	= $this->template->pagination($this->_output->pagination, false);
+						if(in_array($this->_method, array('create', 'read', 'update')))
+						{
+							unset($this->_output->pagination, $this->_output->total);
+						}
+						else
+						{
+							$this->_output->pagination	= $this->template->pagination($this->_output->pagination, false);
+						}
 					}
 					
 					/**
@@ -2835,6 +2842,11 @@ class Core extends Controller
 							$this->_output
 						);
 					}
+				}
+				
+				if(in_array($this->_method, array('create', 'read', 'update')))
+				{
+					unset($this->_output->pagination, $this->_output->total);
 				}
 				
 				/* Display to the browser */
