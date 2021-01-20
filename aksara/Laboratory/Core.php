@@ -6350,17 +6350,35 @@ class Core extends Controller
 	{
 		if(!is_array($column))
 		{
-			$column									= array_map('trim', explode(',', $column));
-			
-			foreach($column as $key => $val)
+			if($direction)
 			{
-				$key								= array_map('trim', explode(' ', $key));
-				
-				$this->_order_by[$key[0]]			= array
+				$this->_order_by[$column]			= array
 				(
-					'direction'						=> (isset($key[1]) ? $key[1] : 'ASC'),
+					'direction'						=> $direction,
 					'escape'						=> $escape
 				);
+			}
+			else
+			{
+				$column								= array_map('trim', explode(',', $column));
+				
+				foreach($column as $key => $val)
+				{
+					if(strpos($val, '(') !== false && strpos($val, ')') !== false)
+					{
+						$col						= $val;
+					}
+					else
+					{
+						list($col, $dir)			= array_pad(array_map('trim', explode(' ', $val)), 2, null);
+					}
+					
+					$this->_order_by[$col]			= array
+					(
+						'direction'					=> ($dir ? $dir : 'asc'),
+						'escape'					=> $escape
+					);
+				}
 			}
 		}
 		else
@@ -7698,13 +7716,13 @@ class Core extends Controller
 					{
 						if(service('request')->getGet('sort'))
 						{
-							$val					= get_userdata('sortOrder');
+							$val['direction']		= get_userdata('sortOrder');
 						}
 						
 						// fix table alias
 						$table						= (strpos($this->_from, ' ') !== false ? substr($this->_from, strripos($this->_from, ' ') + 1) : $this->_from);
 						
-						$this->model->order_by($table . '.' . $key, $val);
+						$this->model->order_by($table . '.' . $key, $val['direction'], $val['escape']);
 					}
 					/**
 					 * Validate the column to check if column is exist in table
@@ -7714,7 +7732,7 @@ class Core extends Controller
 						// fix table alias
 						$table						= (strpos($key, ' ') !== false ? substr($key, strripos($key, ' ') + 1) : $key);
 						
-						$this->model->order_by($table, $val);
+						$this->model->order_by($table, $val['direction'], $val['escape']);
 					}
 					else
 					{
@@ -7729,13 +7747,15 @@ class Core extends Controller
 								{
 									if(service('request')->getGet('sort'))
 									{
-										$val		= get_userdata('sortOrder');
+										$dir		= 'direction';
+										
+										$val[$dir]	= get_userdata('sortOrder');
 									}
 									
 									// fix table alias
 									$table			= (strpos($table, ' ') !== false ? substr($table, strripos($table, ' ') + 1) : $table);
 									
-									$this->model->order_by($table . '.' . $key, $val);
+									$this->model->order_by($table . '.' . $key, $val['direction'], $val['escape']);
 								}
 							}
 						}
