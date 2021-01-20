@@ -58,7 +58,7 @@
 								if($badge)
 								{
 									$tags			.= '
-										<a href="' . go_to('tags', array('q' => $badge)) . '" class="--xhr">
+										<a href="' . go_to('../tags', array('q' => $badge)) . '" class="--xhr">
 											<span class="badge badge-secondary mr-2">
 												#' . trim($badge) . '
 											</span>
@@ -71,7 +71,7 @@
 						echo '
 							<div class="row">
 								<div class="col-3 col-sm-3">
-									<a href="' . base_url(array('blogs', $val->category_slug, $val->post_slug)) . '" class="--xhr">
+									<a href="' . go_to('../' . $val->category_slug . '/' . $val->post_slug) . '" class="--xhr">
 										<img id="og-image" src="' . get_image('blogs', $val->featured_image, 'thumb') . '" class="img-fluid rounded" />
 									</a>
 								</div>
@@ -86,13 +86,13 @@
 											<i class="mdi mdi-clock-outline"></i> ' . time_ago($val->updated_timestamp) . '
 										</span>
 									</div>
-									<a href="' . base_url(array('blogs', $val->category_slug, $val->post_slug)) . '" class="--xhr">
+									<a href="' . go_to('../' . $val->category_slug . '/' . $val->post_slug) . '" class="--xhr">
 										<h5>
 											' . $val->post_title . '
 										</h5>
 									</a>
 									<p class="mb-0">
-										<a href="' . base_url(array('blogs', $val->category_slug, $val->post_slug)) . '" class="--xhr text-muted">
+										<a href="' . go_to('../' . $val->category_slug . '/' . $val->post_slug) . '" class="--xhr text-muted">
 											' . truncate($val->post_excerpt, 128) . '
 										</a>
 									</p>
