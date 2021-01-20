@@ -335,7 +335,7 @@ class Parsedown
                     'text' => array(
                         'name' => 'code',
                         'text' => $text,
-                    ),
+                    )
                 ),
             );
 
@@ -933,6 +933,10 @@ class Parsedown
                 'element' => array(
                     'name' => 'table',
                     'handler' => 'elements',
+					'attributes' => array
+					(
+						'class' => 'table table-sm table-bordered'
+					)
                 ),
             );
 
@@ -1244,6 +1248,7 @@ class Parsedown
                 'attributes' => array(
                     'src' => $Link['element']['attributes']['href'],
                     'alt' => $Link['element']['text'],
+					'class' => 'img-fluid'
                 ),
             ),
         );
@@ -1320,6 +1325,15 @@ class Parsedown
             $Element['attributes']['href'] = $Definition['url'];
             $Element['attributes']['title'] = $Definition['title'];
         }
+		
+		if(strpos($Element['attributes']['href'], '://') !== false)
+		{
+			$Element['attributes']['target'] = '_blank';
+		}
+		else
+		{
+			$Element['attributes']['class'] = '--xhr';
+		}
 
         return array(
             'extent' => $extent,
