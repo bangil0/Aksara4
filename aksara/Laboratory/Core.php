@@ -7707,6 +7707,15 @@ class Core extends Controller
 				
 				foreach($this->_order_by as $key => $val)
 				{
+					if(!is_array($val))
+					{
+						$val						= array
+						(
+							'direction'				=> $val,
+							'escape'				=> true
+						);
+					}
+					
 					/**
 					 * Validate the column to check if column is exist in table
 					 */
