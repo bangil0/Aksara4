@@ -21,7 +21,7 @@ class Groups extends \Aksara\Laboratory\Core
 		$this->set_permission(1);
 		$this->set_theme('backend');
 		
-		$this->unset_delete('group_id', array(1, 2));
+		$this->unset_delete('group_id', array(1, 2, 3));
 	}
 	
 	public function index()
