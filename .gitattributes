@@ -1,5 +1,6 @@
-*.css linguist-language=CSS
-*.js linguist-language=JavaScript
+* linguist-vendored
+*.css linguist-vendored
+*.js linguist-vendored
 
 .git* export-ignore
 .editorconfig export-ignore
