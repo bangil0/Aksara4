@@ -99,7 +99,7 @@ INSERT INTO `app__groups_privileges` (`module`, `submodule`, `controller`, `priv
 ('administrative', 'account', 'account', '[\"index\",\"update\"]', NOW()),
 ('administrative', 'activities', 'activities', '[\"index\",\"read\",\"truncate\",\"delete\",\"pdf\",\"print\"]', NOW()),
 ('administrative', 'administrative', 'administrative', '[\"index\"]', NOW()),
-('administrative', 'cleaner', 'cleaner', '["index","clean"]', NOW()),
+('administrative', 'cleaner', 'cleaner', '[\"index\",\"clean\"]', NOW()),
 ('administrative', 'countries', 'countries', '[\"index\",\"create\",\"read\",\"update\",\"delete\",\"export\",\"print\",\"pdf\"]', NOW()),
 ('administrative', 'groups', 'adjust_privileges', '[\"index\",\"create\",\"read\",\"update\",\"delete\",\"export\",\"print\",\"pdf\"]', NOW()),
 ('administrative', 'groups', 'groups', '[\"index\",\"create\",\"read\",\"update\",\"delete\",\"export\",\"print\",\"pdf\"]', NOW()),
