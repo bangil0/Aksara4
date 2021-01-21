@@ -43,6 +43,6 @@
 		
 		<?php echo aksara_footer(); ?>
 		
-		<?php echo asset_loader('a.js, b.js'); ?>
+		<?php echo asset_loader('js/scripts.js'); ?>
 	</body>
 </html>
