@@ -59,7 +59,7 @@ class Template
 	/**
 	 * Scan the view file location both camelized string and lowercase
 	 */
-	public function get_view($view = 'index', $data = array())
+	public function get_view($view = 'index', $data = array(), $table = null)
 	{
 		// route namespace controller to view
 		$base_view									= preg_replace('/modules\//i', null, ltrim(lcfirst(ltrim(str_replace('\\', '/', preg_replace('/\\\\Controllers\\\\/', '\Views\\', service('router')->controllerName(), 1) . '\\' . $view), '/')), 'aksara/'), 1);
@@ -477,7 +477,7 @@ class Template
 			// no matches view, use template instead
 			if(service('router')->getMatchedRoute())
 			{
-				if($data)
+				if($data && $table)
 				{
 					if(file_exists(APPPATH . 'Views/templates/' . $view . $suffix . '.php'))
 					{
@@ -510,7 +510,7 @@ class Template
 		return $this->_view;
 	}
 	
-	public function build($view = null, $data = array(), $breadcrumb = array(), $language = null)
+	public function build($view = null, $data = array(), $breadcrumb = array(), $table = null, $language = null)
 	{
 		if(!$data)
 		{
@@ -525,7 +525,7 @@ class Template
 		/**
 		 * Build the result and send to client
 		 */
-		$this->_view								= $this->get_view($view, $data);
+		$this->_view								= $this->get_view($view, $data, $table);
 		
 		if((service('request')->isAJAX() && stripos(service('request')->getServer('HTTP_REFERER'), service('request')->getServer('SERVER_NAME')) !== false) || $this->_api_request)
 		{
@@ -1098,6 +1098,13 @@ class Template
 							'label'					=> 'Activity Logs',
 							'slug'					=> 'administrative/activities',
 							'icon'					=> 'mdi mdi-information-outline'
+						),
+						array
+						(
+							'id'					=> 0,
+							'label'					=> 'Session Cleaner',
+							'slug'					=> 'administrative/cleaner',
+							'icon'					=> 'mdi mdi-trash-can'
 						),
 						array
 						(

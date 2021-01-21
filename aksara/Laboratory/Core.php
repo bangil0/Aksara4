@@ -2850,7 +2850,7 @@ class Core extends Controller
 				}
 				
 				/* Display to the browser */
-				return $this->template->build($this->_view, $this->_output, $this->_set_breadcrumb, $this->_language);
+				return $this->template->build($this->_view, $this->_output, $this->_set_breadcrumb, $this->_from, $this->_language);
 			}
 		}
 	}
