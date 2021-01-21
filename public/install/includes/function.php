@@ -23,3 +23,30 @@ if(!function_exists('phrase'))
 		return $classes->phrase($phrase);
 	}
 }
+
+if(!function_exists('random_string'))
+{
+	/**
+	 * Genarate random string
+	 */
+	function random_string($length = 32, $symbol = false)
+	{
+		$characters									= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		
+		if($symbol)
+		{
+			/* add extra symbols */
+			$characters								.= '~`!@#%^&*()_-+=|}]{[?/>.<,';
+		}
+		
+		$char_length								= strlen($characters);
+		$output										= '';
+		
+		for($i = 0; $i < $length; $i++)
+		{
+			$output									.= $characters[rand(0, $char_length - 1)];
+		}
+		
+		return $output;
+	}
+}

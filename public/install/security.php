@@ -158,14 +158,14 @@
 					' . phrase('encryption_key') . '
 					<b class="text-danger">*</b>
 				</label>
-				<input type="text" name="encryption" class="form-control form-control-sm" placeholder="' . phrase('your_encryption_key') . '" value="' . (isset($_SESSION['security']['encryption']) ? $_SESSION['security']['encryption'] : null) . '" />
+				<input type="text" name="encryption" class="form-control form-control-sm" placeholder="' . phrase('your_encryption_key') . '" value="' . (isset($_SESSION['security']['encryption']) ? $_SESSION['security']['encryption'] : random_string(64, true)) . '" />
 			</div>
 			<div class="form-group">
 				<label class="d-block mb-0">
 					' . phrase('cookie_name') . '
 					<b class="text-danger">*</b>
 				</label>
-				<input type="text" name="cookie_name" class="form-control form-control-sm" placeholder="' . phrase('unique_cookie_name_to_prevent_conflict') . '" value="' . (isset($_SESSION['security']['cookie_name']) ? $_SESSION['security']['cookie_name'] : null) . '" />
+				<input type="text" name="cookie_name" class="form-control form-control-sm" placeholder="' . phrase('unique_cookie_name_to_prevent_conflict') . '" value="' . (isset($_SESSION['security']['cookie_name']) ? $_SESSION['security']['cookie_name'] : 'aksara_' . random_string(16)) . '" />
 			</div>
 			<br/>
 			<h5>
