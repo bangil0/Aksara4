@@ -1,7 +1,7 @@
-.git* export-ignore
-* text=auto
 *.css linguist-vendored
-*.scss linguist-vendored
 *.js linguist-vendored
+
+.git* export-ignore
+.editorconfig export-ignore
 README.md export-ignore
 documentation export-ignore
