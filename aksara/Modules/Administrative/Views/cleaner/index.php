@@ -14,7 +14,7 @@
 		<hr />
 		<a href="<?php echo go_to('clean'); ?>" class="btn btn-warning btn-sm --xhr show-progress">
 			<i class="mdi mdi-check"></i>
-			<?php echo phrase('click_here_to_continue'); ?>
+			<?php echo phrase('click_to_continue'); ?>
 		</a>
 	</div>
 </div>
