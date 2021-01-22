@@ -36,23 +36,51 @@ class Cleaner extends \Aksara\Laboratory\Core
 	 */
 	public function clean()
 	{
+		$error										= false;
+		
+		/**
+		 * Clean visitor log garbage that exceed 7 days
+		 */
+		helper('filesystem');
+		
+		$logs										= directory_map(WRITEPATH . 'logs');
+		$logs_cleaned								= 0;
+		
+		if($logs && is_writable(WRITEPATH . 'logs'))
+		{
+			foreach($logs as $key => $val)
+			{
+				$modified_time						= filemtime(WRITEPATH . 'logs' . DIRECTORY_SEPARATOR . $val);
+				
+				if('index.html' == $val || !is_file(WRITEPATH . 'logs' . DIRECTORY_SEPARATOR . $val) || !$modified_time || $modified_time > strtotime('-1 week'))
+				{
+					continue;
+				}
+				
+				if(unlink(WRITEPATH . 'logs' . DIRECTORY_SEPARATOR . $val))
+				{
+					$logs_cleaned++;
+				}
+			}
+		}
+		
+		/**
+		 * Clean session garbage
+		 */
 		$session_driver								= service('request')->config->sessionDriver;
 		$session_name								= service('request')->config->sessionCookieName;
 		$session_expiration							= service('request')->config->sessionExpiration;
 		$session_path								= service('request')->config->sessionSavePath;
 		$session_match_ip							= service('request')->config->sessionMatchIP;
+		$session_cleaned							= 0;
 		
 		$pattern									= sprintf('#\A%s' . ($session_match_ip ? '[0-9a-f]{32}' : '') . '\z#', preg_quote($session_name));
-		$affected_data								= 0;
-		$error										= false;
 		
 		if(stripos($session_driver, 'file') !== false)
 		{
 			// file session handler
 			if(is_writable(WRITEPATH . $session_path))
 			{
-				helper('filesystem');
-				
 				$session							= directory_map(WRITEPATH . $session_path);
 				
 				if($session)
@@ -66,9 +94,9 @@ class Cleaner extends \Aksara\Laboratory\Core
 							continue;
 						}
 						
-						if(delete_files(WRITEPATH . $session_path . DIRECTORY_SEPARATOR . $val))
+						if(unlink(WRITEPATH . $session_path . DIRECTORY_SEPARATOR . $val))
 						{
-							$affected_data++;
+							$session_cleaned++;
 						}
 					}
 				}
@@ -90,7 +118,7 @@ class Cleaner extends \Aksara\Laboratory\Core
 				)
 			);
 			
-			$affected_data							= $this->model->affected_rows();
+			$session_cleaned						= $this->model->affected_rows();
 		}
 		
 		if($error)
@@ -98,10 +126,59 @@ class Cleaner extends \Aksara\Laboratory\Core
 			// throw with error
 			return throw_exception(403, $error, go_to());
 		}
-		elseif($affected_data)
+		elseif($logs_cleaned || $session_cleaned)
 		{
 			// throw with amount of cleaned garbage
-			return throw_exception(301, '<b>' . number_format($affected_data) . '</b> ' . phrase('garbage_session_has_been_cleaned_successfully'), go_to());
+			$html									= '
+				<div class="text-center">
+					<i class="mdi mdi-delete-empty mdi-5x text-success"></i>
+					<br />
+					<h5>
+						' . phrase('garbage_cleaned_successfully') . '
+					</h5>
+				</div>
+				<p class="text-center">
+					' . phrase('below_is_the_detailed_information_of_cleaned_garbage') . '
+				</p>
+				<div class="row">
+					<div class="col-6 text-right">
+						' . phrase('visitor_logs') . '
+					</div>
+					<div class="col-6">
+						' . number_format($logs_cleaned) . ' ' . phrase('cleaned') . '
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6 text-right">
+						' . phrase('expired_session') . '
+					</div>
+					<div class="col-6">
+						' . number_format($session_cleaned) . ' ' . phrase('cleaned') . '
+					</div>
+				</div>
+				<hr class="row" />
+				<div class="text-right">
+					<a href="javascript:void(0)" class="btn btn-light" data-dismiss="modal">
+						<i class="mdi mdi-window-close"></i>
+						' . phrase('close') . '
+						<em class="text-sm">(esc)</em>
+					</a>
+				</div>
+			';
+			
+			return make_json
+			(
+				array
+				(
+					'status'						=> 206,
+					'exception'						=> array
+					(
+						'title'						=> phrase('garbage_cleaned'),
+						'icon'						=> 'mdi mdi-check',
+						'html'						=> $html
+					)
+				)
+			);
 		}
 		
 		// no garbage found
