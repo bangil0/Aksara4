@@ -2846,7 +2846,7 @@ class Core extends Controller
 				
 				if(in_array($this->_method, array('create', 'read', 'update')))
 				{
-					unset($this->_output->pagination, $this->_output->total);
+					unset($this->_output->total);
 				}
 				
 				/* Display to the browser */
