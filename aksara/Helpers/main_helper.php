@@ -82,15 +82,30 @@ if(!function_exists('load_comment_plugin'))
 		{
 			return '
 				<div id="disqus_thread" class="mt-5 mb-5"></div>
+				<div id="disqus_script"></div>
 				<script>
-					!function()
+					if(typeof DISQUS === "undefined")
 					{
-						var t						= document,
-							e						= t.createElement("script");
-						e.src						= "https://' . str_replace(array('http://','https://'), '', get_setting('disqus_site_domain')) . '/embed.js",
-						e.setAttribute("data-timestamp",+new Date),
-						(t.head || t.body).appendChild(e)
-					}();
+						(function()
+						{
+							var t					= document,
+								e					= t.createElement("script");
+							e.src					= "https://' . str_replace(array('http://','https://'), '', get_setting('disqus_site_domain')) . '/embed.js",
+							e.setAttribute("data-timestamp", +new Date),
+							t.getElementById("disqus_script").appendChild(e)
+						})();
+					}
+					else
+					{
+						DISQUS.reset
+						({
+							reload: true,
+							config: function ()
+							{
+								this.page.url = "' . $url . '";
+							}
+						})
+					}
 				</script>
 			';
 		}
