@@ -242,6 +242,15 @@
 									<?php echo $results->form_data->google_analytics_key->content; ?>
 								</div>
 							</div>
+							<div class="col-md-7">
+								<div class="form-group">
+									<label class="text-muted d-block" for="disqus_site_domain_input">
+										<?php echo $results->form_data->disqus_site_domain->label; ?>
+										<?php echo ($results->form_data->disqus_site_domain->required ? '<span class="float-right text-sm text-danger">' . phrase('required') . '</span>' : null); ?>
+									</label>
+									<?php echo $results->form_data->disqus_site_domain->content; ?>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="tab-pane fade" id="pills-oauth">

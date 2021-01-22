@@ -50,9 +50,8 @@
 							<p class="mb-5">
 								' . $tags . '
 							</p>
-							<div class="fb-comments-container mb-5">
-								<div class="fb-comments" data-href="' . current_page() . '" data-numposts="5" data-width="100%"></div>
-							</div>
+							
+							' . load_comment_plugin(current_page()) . '
 						';
 					}
 				}

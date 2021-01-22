@@ -51,7 +51,7 @@ if(!function_exists('aksara_footer'))
 	{
 		$output										= show_flashdata() . "\n";
 		
-		if(get_setting('facebook_app_id'))
+		if(get_setting('facebook_app_id') && !get_setting('disqus_site_domain'))
 		{
 			$output									.= '<script>window.fbAsyncInit = function() {FB.init({appId: \'' . get_setting('facebook_app_id') . '\', autoLogAppEvents: true, xfbml: true, version: \'v9.0\'});};</script>' . "\n";
 			$output									.= '<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>' . "\n";
@@ -67,6 +67,45 @@ if(!function_exists('aksara_footer'))
 		$output										.= '<script type="text/javascript">(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>' . "\n";
 		
 		return $output;
+	}
+}
+
+if(!function_exists('load_comment_plugin'))
+{
+	/**
+	 * A message exception that will throw as JSON
+	 */
+	function load_comment_plugin($url = null)
+	{
+		// disqus comment plugin
+		if(get_setting('disqus_site_domain'))
+		{
+			return '
+				<div id="disqus_thread" class="mt-5 mb-5"></div>
+				<script>
+					!function()
+					{
+						var t						= document,
+							e						= t.createElement("script");
+						e.src						= "https://' . str_replace(array('http://','https://'), '', get_setting('disqus_site_domain')) . '/embed.js",
+						e.setAttribute("data-timestamp",+new Date),
+						(t.head || t.body).appendChild(e)
+					}();
+				</script>
+			';
+		}
+		
+		// facebook comment plugin
+		elseif(get_setting('facebook_app_id'))
+		{
+			return '
+				<div class="fb-comments-container mt-5 mb-5">
+					<div class="fb-comments" data-href="' . $url . '" data-numposts="5" data-width="100%"></div>
+				</div>
+			';
+		}
+		
+		return false;
 	}
 }
 

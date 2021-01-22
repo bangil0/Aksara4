@@ -143,6 +143,7 @@ class Settings extends \Aksara\Laboratory\Core
 				'openlayers_search_key'				=> ($required_api_key ? $required_api_key . 'alpha_dash|max_length[128]' : null),
 				'maps_provider'						=> 'in_list[disabled,google,openlayers]',
 				'google_analytics_key'				=> ($required_analytic_key ? $required_analytic_key . 'alpha_dash|max_length[32]' : null),
+				'disqus_site_domain'				=> (service('request')->getPost('disqus_site_domain') ? 'valid_url|max_length[128]' : null),
 				
 				/* OAUTH */
 				'facebook_app_id'					=> $required_facebook_app_id,
@@ -186,6 +187,7 @@ class Settings extends \Aksara\Laboratory\Core
 				'openlayers_search_provider'		=> phrase('openlayers_search_provider'),
 				'openlayers_search_key'				=> phrase('openlayers_search_key'),
 				'google_analytics_key'				=> phrase('google_analytics_key'),
+				'disqus_site_domain'				=> phrase('disqus_site_domain'),
 				
 				/* OATH */
 				'facebook_app_id'					=> phrase('facebook_app_id'),
