@@ -38,12 +38,6 @@ if(!function_exists('aksara_header'))
 		$output										.= '<link rel="stylesheet" type="text/css" href="' . base_url('assets/materialdesignicons/css/materialdesignicons.min.css') . '" />' . "\n";
 		$output										.= '<script type="text/javascript">(function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y)}else{w.readyQ.push(x)}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document)</script>' . "\n";
 		
-		if(get_setting('facebook_app_id'))
-		{
-			$output									.= '<script>window.fbAsyncInit = function() {FB.init({appId: \'' . get_setting('facebook_app_id') . '\', autoLogAppEvents: true, xfbml: true, version: \'v9.0\'});};</script>' . "\n";
-			$output									.= '<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>' . "\n";
-		}
-		
 		return $output;
 	}
 }
@@ -56,6 +50,12 @@ if(!function_exists('aksara_footer'))
 	function aksara_footer()
 	{
 		$output										= show_flashdata() . "\n";
+		
+		if(get_setting('facebook_app_id'))
+		{
+			$output									.= '<script>window.fbAsyncInit = function() {FB.init({appId: \'' . get_setting('facebook_app_id') . '\', autoLogAppEvents: true, xfbml: true, version: \'v9.0\'});};</script>' . "\n";
+			$output									.= '<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>' . "\n";
+		}
 		
 		if(get_setting('google_analytics_key'))
 		{
