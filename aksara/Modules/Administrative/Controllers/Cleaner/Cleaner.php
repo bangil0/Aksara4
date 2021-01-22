@@ -63,6 +63,10 @@ class Cleaner extends \Aksara\Laboratory\Core
 				}
 			}
 		}
+		else
+		{
+			$error									= phrase('the_log_path_is_not_writable');
+		}
 		
 		/**
 		 * Clean session garbage
