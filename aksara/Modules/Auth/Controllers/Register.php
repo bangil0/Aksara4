@@ -210,7 +210,10 @@ class Register extends \Aksara\Laboratory\Core
 	{
 		$query										= $this->model->select
 		('
-			app__users.user_id
+			app__users.user_id,
+			app__users.username,
+			app__users.group_id,
+			app__users.language_id
 		')
 		->join
 		(
@@ -252,7 +255,21 @@ class Register extends \Aksara\Laboratory\Core
 				)
 			);
 			
-			return throw_exception(301, phrase('your_account_has_been_successfully_activated'), base_url('auth', array('hash' => null)));
+			/* set the user credential into session */
+			set_userdata
+			(
+				array
+				(
+					'user_id'						=> $query->user_id,
+					'username'						=> $query->username,
+					'group_id'						=> $query->group_id,
+					'language_id'					=> $query->language_id,
+					'is_logged'						=> true,
+					'session_generated'				=> time()
+				)
+			);
+			
+			return throw_exception(301, phrase('your_account_has_been_successfully_activated'), base_url());
 		}
 		else
 		{
