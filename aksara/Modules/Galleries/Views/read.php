@@ -90,9 +90,7 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<div class="fb-comments-container">
-						<div class="fb-comments" data-href="<?php echo current_page(); ?>" data-numposts="5" data-width="100%"></div>
-					</div>
+					<?php echo load_comment_plugin(current_page()); ?>
 				</div>
 			</div>
 		</div>
