@@ -206,12 +206,9 @@
 			{
 				$('.mdi.mdi-loading.mdi-spin').removeClass('mdi-loading mdi-spin').addClass('mdi-send');
 				
-				$('pre.code').text(JSON.stringify((typeof response.responseJSON !== 'undefined' ? response.responseJSON : response), null, 4)).highlight
-				({
-					source: false,
-					zebra: true,
-					indent: 'tab'
-				})
+				$('pre code').text(JSON.stringify((typeof response.responseJSON !== 'undefined' ? response.responseJSON : response), null, 4)),
+				
+				Prism.highlightAll()
 			})
 		})
 	})
