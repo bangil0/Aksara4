@@ -102,7 +102,7 @@ if(!function_exists('load_comment_plugin'))
 							reload: true,
 							config: function ()
 							{
-								this.page.url = "' . $url . '";
+								this.page.url = "' . ($url ? $url : current_page()) . '";
 							}
 						})
 					}
